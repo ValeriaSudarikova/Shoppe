@@ -1,32 +1,35 @@
 @font-face {
-    font-family: 'DM Sans';
-    src: local('DM Sans'),
-        url('./DMSans_Regular.woff2') format('woff2'),
-        url('./DMSans_Regular.woff') format('woff'),
-        url('./DMSans_Regular.eot') format('eot');
-    font-style: normal;
-    font-weight: 400;
-    font-display: swap;
+  font-family: 'DM Sans';
+  src:
+    local('DM Sans'),
+    url('./DMSans_Regular.woff2') format('woff2'),
+    url('./DMSans_Regular.woff') format('woff'),
+    url('./DMSans_Regular.eot') format('eot');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'DM Sans';
-    src: local('DM Sans'),
-        url('./DMSans_Medium.woff2') format('woff2'),
-        url('./DMSans_Medium.woff') format('woff'),
-        url('./DMSans_Medium.eot') format('eot');
-    font-style: normal;
-    font-weight: 500;
-    font-display: swap;
+  font-family: 'DM Sans';
+  src:
+    local('DM Sans'),
+    url('./DMSans_Medium.woff2') format('woff2'),
+    url('./DMSans_Medium.woff') format('woff'),
+    url('./DMSans_Medium.eot') format('eot');
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
 }
 
 @font-face {
-    font-family: 'DM Sans';
-    src: local('DM Sans'),
-        url('./DMSans_Bold.woff2') format('woff2'),
-        url('./DMSans_Bold.woff') format('woff'),
-        url('./DMSans_Bold.eot') format('eot');
-    font-style: normal;
-    font-weight: 700;
-    font-display: swap;
+  font-family: 'DM Sans';
+  src:
+    local('DM Sans'),
+    url('./DMSans_Bold.woff2') format('woff2'),
+    url('./DMSans_Bold.woff') format('woff'),
+    url('./DMSans_Bold.eot') format('eot');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
 }
