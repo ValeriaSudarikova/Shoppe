@@ -1,0 +1,80 @@
+@import '../fonts/fonts.scss';
+
+%h1 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 33px;
+    color: #000;
+}
+
+%h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 26px;
+    line-height: 35px;
+    color: #000;
+}
+
+@mixin h3($color) {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 26px;
+    color: $color;
+}
+
+%h4 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 20px;
+    color: #a18a68;
+}
+
+@mixin h5($color) {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 27px;
+    color: $color;
+}
+
+@mixin t-large($color) {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: $color;
+}
+
+@mixin t-medium($color) {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: $color;
+}
+
+@mixin t-small($color) {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    color: $color;
+}
+
+@mixin button-empty($border, $border-radius, $color) {
+    border: $border;
+    border-radius: $border-radius;
+    color: $color;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+%button-black {
+    border-radius: 4px;
+    background-color: #000;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+}
