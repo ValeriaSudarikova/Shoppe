@@ -1,4 +1,4 @@
-@import '../fonts/fonts.scss';
+@use '../fonts/fonts.scss' as *;
 
 $ff: 'DM Sans', sans-serif;
 

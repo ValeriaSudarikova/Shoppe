@@ -1,6 +1,6 @@
-@import './reset.scss';
-@import '../fonts/fonts.scss';
-@import './variables.scss';
+@use './reset.scss' as *;
+@use '../fonts/fonts.scss' as *;
+@use './variables.scss' as *;
 
 .container {
   width: 100%;
@@ -8,16 +8,16 @@
   max-width: 1310px;
   padding: 0 30px;
 
-  @media (min-width: $breakpoints-xxl) {
+//   @media (min-width: $breakpoints-xxl) {
     
-  }
-  @media (min-width: $breakpoints-xl) {
+//   }
+//   @media (min-width: $breakpoints-xl) {
     
-  }
-  @media (min-width: $breakpoints-l) {
+//   }
+//   @media (min-width: $breakpoints-l) {
     
-  }
-  @media (min-width: $breakpoints-m) {
+//   }
+//   @media (min-width: $breakpoints-m) {
     
-  }
+//   }
 }
