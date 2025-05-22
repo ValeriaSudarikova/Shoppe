@@ -1,10 +1,14 @@
 <template>
     <div>
         <header>
-            <HeaderNav/>
+            <div class="container">
+                <HeaderNav/>
+            </div>
         </header>
         <main>
-            <NuxtPage/>
+            <div class="container">
+                <NuxtPage/>
+            </div>
         </main>
     </div>
 </template>
@@ -13,5 +17,4 @@
 </script>
 
 <style lang="scss">
-    
 </style>
