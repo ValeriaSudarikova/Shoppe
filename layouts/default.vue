@@ -1,20 +1,10 @@
 <template>
-    <div>
+    <div class="container">
         <header>
-            <div class="container">
-                <HeaderNav/>
-            </div>
+            <HeaderNav />
         </header>
         <main>
-            <div class="container">
-                <NuxtPage/>
-            </div>
+            <NuxtPage />
         </main>
     </div>
 </template>
-
-<script setup>
-</script>
-
-<style lang="scss">
-</style>
