@@ -1,7 +1,7 @@
 <template>
     <ul class="header-top-nav-pages">
-        <li v-for="(i, index) in navLinkPages" :key="index" class="header-top-nav-pages-item">
-            <NuxtLink :to="i.to" class="header-top-nav-pages-item-link">{{ i.text }}</NuxtLink>
+        <li v-for="(link, index) in navLinkPages" :key="index" class="header-top-nav-pages-item">
+            <NuxtLink :to="link.to" class="header-top-nav-pages-item-link">{{ link.text }}</NuxtLink>
         </li>
     </ul>
 </template>
