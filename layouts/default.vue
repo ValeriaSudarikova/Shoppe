@@ -4,7 +4,7 @@
             <HeaderNav />
         </header>
         <main>
-            <NuxtPage />
+            <slot />
         </main>
     </div>
 </template>

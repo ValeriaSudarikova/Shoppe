@@ -13,13 +13,16 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
+import SearchIcon from '@/assets/images/icons/search.svg';
+import CartIcon from '@/assets/images/icons/cart.svg';
+import AccountIcon from '@/assets/images/icons/account.svg';
 
 const router = useRouter()
 
 const navLinkIcons = [
-    { to: '/search', src: '/images/icons/search.svg', alt: 'search' },
-    { to: '/cart', src: '/images/icons/cart.svg', alt: 'cart' },
-    { to: '/account', src: '/images/icons/account.svg', alt: 'account' },
+    { to: '/search', src: SearchIcon, alt: 'search' },
+    { to: '/cart', src: CartIcon, alt: 'cart' },
+    { to: '/account', src: AccountIcon, alt: 'account' },
 ];
 </script>
 
