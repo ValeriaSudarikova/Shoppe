@@ -6,8 +6,6 @@
     </div>
 </template>
 
-<script setup></script>
-
 <style lang="scss">
 .img-content {
     width: 100%;
