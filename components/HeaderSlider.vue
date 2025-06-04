@@ -7,16 +7,8 @@
                 <div
                     v-for="picture in picturesArray"
                     :key="picture.id"
-                    class="embla__slide"
-                >
-                    <div class="embla__slide-wrapper">
-                        <img
-                            :src="picture.download_url"
-                            :alt="picture.alt || `Picture ${picture.id}`"
-                            class="embla__slide-wrapper-img"
-                        />
-                        <HeaderSliderImgContent />
-                    </div>
+                    class="embla__slide">
+                    <HeaderSliderSlideImg :picture="picture" />
                 </div>
             </div>
         </div>
@@ -33,11 +25,10 @@
 </template>
 
 <script setup>
-import HeaderSliderImgContent from '@/components/HeaderSliderImgContent';
-import { usePicturesSlider } from '@/composables/useHeaderSlider';
-import { onMounted, onUnmounted, watch, ref, nextTick } from 'vue';
-import EmblaCarousel from 'embla-carousel';
-import Autoplay from 'embla-carousel-autoplay';
+import { usePicturesSlider } from '@/composables/useHeaderSlider'
+import { onMounted, onUnmounted, watch, ref, nextTick } from 'vue'
+import EmblaCarousel from 'embla-carousel'
+import Autoplay from 'embla-carousel-autoplay'
 
 const { fetchPicturesApi, picturesArray, loading, error } = usePicturesSlider()
 
@@ -56,68 +47,29 @@ const scrollToDot = (index) => {
 }
 
 onMounted(() => {
-    fetchPicturesApi();
-});
+    fetchPicturesApi()
+})
 
 watch([emblaRootNode, picturesArray], async ([rootNode, pictures]) => {
     if (rootNode && pictures.length > 0) {
-        if (!emblaApi.value) {
-            await nextTick();
-            if (!document.body.contains(rootNode)) {
-                return;
-            }
-            if (
-                rootNode.firstElementChild &&
-                rootNode.firstElementChild.children.length === 0 &&
-                pictures.length > 0
-            ) {
-                return;
-            }
+        await nextTick();
 
-            const options = { loop: true };
-            const plugins = [Autoplay()];
+        const options = { loop: true }
+        const plugins = [Autoplay()]
+        const emblaInstance = EmblaCarousel(rootNode, options, plugins)
+        
+        emblaApi.value = emblaInstance
+        emblaApi.value.plugins().autoplay.play()
+        emblaApi.value.on('select', updateSelectedDot)
+        emblaApi.value.on('reInit', updateSelectedDot)
 
-            try {
-                const emblaInstance = EmblaCarousel(
-                    rootNode,
-                    options,
-                    plugins
-                );
-                emblaApi.value = emblaInstance;
-
-                if (emblaApi.value.plugins().autoplay) {
-                    emblaApi.value.plugins().autoplay.play();
-                }
-
-                emblaApi.value.on('select', updateSelectedDot)
-                emblaApi.value.on('reInit', updateSelectedDot)
-
-                updateSelectedDot()
-            } catch (e) {
-                console.error('Error initializing Embla Carousel:', e);
-            }
-        } else {
-            await nextTick();
-            emblaApi.value.reInit();
-        }
-    } else if (emblaApi.value && pictures.length === 0) {
-        emblaApi.value.destroy()
-        emblaApi.value = null
-        selectedDotIndex.value = 0
-
-    } else if (rootNode && pictures.length === 0) {
-        if (emblaApi.value) {
-            emblaApi.value.destroy()
-            emblaApi.value = null
-            selectedDotIndex.value = 0
-        }
+        updateSelectedDot()
     }
 }, { deep: true })
 
 onUnmounted(() => {
     if (emblaApi.value) {
-        emblaApi.value.destroy();
-        emblaApi.value = null;
+        emblaApi.value.destroy()
     }
 })
 </script>
@@ -125,9 +77,9 @@ onUnmounted(() => {
 <style lang="scss">
 .pictures-loading,
 .pictures-error {
-    font-family: $ff;
-    font-size: 16px;
     margin: 30px 0;
+    font-size: 16px;
+    font-family: $ff;
     text-align: center;
 }
 
@@ -144,50 +96,32 @@ onUnmounted(() => {
     }
 
     &__slide {
-        flex: 0 0 100%;
-        min-width: 0;
         display: flex;
+        flex: 0 0 100%;
         justify-content: center;
-
-        &-wrapper {
-            width: 1000px;
-            max-width: 100%;
-            border-radius: 16px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-
-            &-img {
-                max-width: 100%;
-                max-height: 600px;
-                width: 100%;
-                opacity: 0.7;
-                border-radius: 16px;
-            }
-        }
+        min-width: 0;
     }
 }
 
 .embla__dots {
     position: relative;
-    margin-top: -38px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 14px;
+    margin-top: -38px;
 
     .embla__dot {
+        border-radius: 50%;
         width: 10px;
         height: 10px;
-        border-radius: 50%;
         background-color: #fff;
 
         &-selected {
-            width: 18px;
-            height: 18px;
             border: 2px solid #fff;
             border-radius: 50%;
+            width: 18px;
+            height: 18px;
             background-color: transparent;
         }
     }

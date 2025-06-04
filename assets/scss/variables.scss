@@ -64,15 +64,15 @@ $ff: 'DM Sans', sans-serif;
 }
 
 @mixin button-empty($border, $border-radius, $color) {
-    height: 53px;
     border: $border;
     border-radius: $border-radius;
+    height: 54px;
     background-color: transparent;
-    color: $color;
-    font-family: $ff;
     font-size: 20px;
+    font-family: $ff;
     font-weight: 700;
     text-transform: capitalize;
+    color: $color;
 }
 
 %button-black {

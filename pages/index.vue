@@ -1,9 +1,9 @@
 <template>
-    <div>
+    <main>
         <HeaderSlider />
-    </div>
+    </main>
 </template>
 
 <script setup>
-import HeaderSlider from '@/components/HeaderSlider'
+definePageMeta({ showHeaderHorizontalLine: true })
 </script>

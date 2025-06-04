@@ -9,13 +9,10 @@
             <NavListIcons />
         </nav>
     </div>
-    <HorizontalLine v-if="roure.name !== 'index'" />
 </template>
 
 <script setup>
-import { useRoute } from 'vue-router'
 
-const roure = useRoute()
 </script>
 
 <style lang="scss">

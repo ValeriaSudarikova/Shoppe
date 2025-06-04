@@ -1,6 +1,13 @@
 export const usePicturesSlider = () => {
-    const picturesArray = ref<Array<{id: string, download_url: string, alt: string}>>([])
-    const loading = ref<boolean>(false)
+    
+    interface ArrayPictures {
+        id: string,
+        download_url: string,
+        alt: string
+    }
+
+    const picturesArray = ref<ArrayPictures[]>([])
+    const loading = ref(false)
     const error = ref<string | null>(null)
 
     const fetchPicturesApi = async () => {

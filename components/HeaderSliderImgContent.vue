@@ -8,15 +8,15 @@
 
 <style lang="scss">
 .img-content {
-    width: 100%;
-    height: 600px;
-    margin-top: -600px;
-    padding: 20px 40px;
-    border-radius: 0 16px;
     z-index: 2;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-top: -600px;
+    border-radius: 0 16px;
+    width: 100%;
+    height: 600px;
+    padding: 20px 40px;
     color: white;
 
     &-heading {
@@ -26,13 +26,13 @@
 
     &-price {
         @extend %h2;
-        color: #fff;
         margin: 16px 0 48px;
+        color: #fff;
     }
 
     &-btn {
         @include button-empty(2px solid #fff, 6px, #fff);
-        max-width: 193px;
+        max-width: 194px;
     }
 }
 </style>
