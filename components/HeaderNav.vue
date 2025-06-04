@@ -9,8 +9,11 @@
             <NavListIcons />
         </nav>
     </div>
-    <HorizontalLine />
 </template>
+
+<script setup>
+
+</script>
 
 <style lang="scss">
 .header-top {

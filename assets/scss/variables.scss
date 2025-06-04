@@ -66,10 +66,13 @@ $ff: 'DM Sans', sans-serif;
 @mixin button-empty($border, $border-radius, $color) {
     border: $border;
     border-radius: $border-radius;
-    color: $color;
-    font-family: $ff;
+    height: 54px;
+    background-color: transparent;
     font-size: 20px;
+    font-family: $ff;
     font-weight: 700;
+    text-transform: capitalize;
+    color: $color;
 }
 
 %button-black {
