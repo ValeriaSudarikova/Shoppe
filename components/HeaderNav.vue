@@ -1,16 +1,27 @@
 <template>
     <div class="header-top">
         <NuxtLink to="/" class="header-top-logo">
-            <img class="header-top-logo-img" src="@/assets/images/logo.png" alt="Shoppe">
+            <img
+                class="header-top-logo-img"
+                src="@/assets/images/logo.png"
+                alt="Shoppe"
+            />
         </NuxtLink>
-        <nav class="header-top-nav">
+        <HeaderCartIconMedia v-if="mobile.isMobile" />
+        <nav class="header-top-nav" :class="{ open: nav.nav }">
             <NavListPages />
             <span class="header-top-nav-line"></span>
             <NavListIcons />
         </nav>
     </div>
     <HorizontalLine />
+    <HeaderSearchForm v-if="mobile.isMobile" />
 </template>
+
+<script setup>
+const mobile = useHeaderMobile();
+const nav = useBurgerNav();
+</script>
 
 <style lang="scss">
 .header-top {
@@ -24,11 +35,11 @@
         align-items: center;
 
         &-line {
+            display: block;
+            margin: 0 48px;
             width: 1px;
             height: 17px;
-            display: block;
             background-color: rgba(112, 112, 112, 1);
-            margin: 0 48px;
         }
     }
 }
