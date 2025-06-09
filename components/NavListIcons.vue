@@ -3,21 +3,25 @@
         <li
             v-for="(link, index) in navLinkIcons"
             :key="index"
-            class="header-top-nav-list-item">
-            <button class="header-top-nav-list-item-link" @click="router.push(link.to)">
+            class="header-top-nav-list-item"
+        >
+            <button
+                class="header-top-nav-list-item-link"
+                @click="router.push(link.to)"
+            >
                 <img :src="link.src" :alt="link.alt" />
             </button>
         </li>
     </ul>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router';
 import SearchIcon from '@/assets/images/icons/search.svg';
 import CartIcon from '@/assets/images/icons/cart.svg';
 import AccountIcon from '@/assets/images/icons/account.svg';
 
-const router = useRouter()
+const router = useRouter();
 
 const navLinkIcons = [
     { to: '/search', src: SearchIcon, alt: 'search' },

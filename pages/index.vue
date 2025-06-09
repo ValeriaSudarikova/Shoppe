@@ -4,6 +4,6 @@
     </main>
 </template>
 
-<script setup>
+<script setup lang="ts">
 definePageMeta({ showHeaderHorizontalLine: true })
 </script>

@@ -8,7 +8,7 @@
     </div>
 </template>
 
-<script setup>
-const route = useRoute()
-const showLine = computed(() => route.meta.showHeaderHorizontalLine)
+<script setup lang="ts">
+const route = useRoute();
+const showLine = computed(() => route.meta.showHeaderHorizontalLine);
 </script>

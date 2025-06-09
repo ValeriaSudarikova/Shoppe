@@ -3,15 +3,22 @@
         <img
             :src="picture.download_url"
             :alt="picture.alt || `Picture ${picture.id}`"
-            class="embla__slide-wrapper-img"/>
+            class="embla__slide-wrapper-img"
+        />
         <HeaderSliderImgContent />
     </div>
 </template>
 
-<script setup>
-defineProps({
-    picture: Object
-})
+<script setup lang="ts">
+interface Picture {
+    download_url: string;
+    alt?: string;
+    id: number;
+}
+
+defineProps<{
+    picture: Picture;
+}>();
 </script>
 
 <style lang="scss">

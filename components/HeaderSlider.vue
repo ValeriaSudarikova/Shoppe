@@ -7,7 +7,8 @@
                 <div
                     v-for="picture in picturesArray"
                     :key="picture.id"
-                    class="embla__slide">
+                    class="embla__slide"
+                >
                     <HeaderSliderSlideImg :picture="picture" />
                 </div>
             </div>
@@ -24,54 +25,58 @@
     </div>
 </template>
 
-<script setup>
-import { usePicturesSlider } from '@/composables/useHeaderSlider'
-import { onMounted, onUnmounted, watch, ref, nextTick } from 'vue'
-import EmblaCarousel from 'embla-carousel'
-import Autoplay from 'embla-carousel-autoplay'
+<script setup lang="ts">
+import { usePicturesSlider } from '@/composables/useHeaderSlider';
+import { onMounted, onUnmounted, watch, ref, nextTick } from 'vue';
+import EmblaCarousel from 'embla-carousel';
+import Autoplay from 'embla-carousel-autoplay';
 
-const { fetchPicturesApi, picturesArray, loading, error } = usePicturesSlider()
+const { fetchPicturesApi, picturesArray, loading, error } = usePicturesSlider();
 
-const emblaRootNode = ref(null)
-const emblaApi = ref(null)
-const selectedDotIndex = ref(0)
+const emblaRootNode = ref(null);
+const emblaApi = ref<any | null>(null);
+const selectedDotIndex = ref(0);
 
 const updateSelectedDot = () => {
-    if (!emblaApi.value) return
-    selectedDotIndex.value = emblaApi.value.selectedScrollSnap()
-}
+    if (!emblaApi.value) return;
+    selectedDotIndex.value = emblaApi.value.selectedScrollSnap();
+};
 
-const scrollToDot = (index) => {
-    if (!emblaApi.value) return
-    emblaApi.value.scrollTo(index)
-}
+const scrollToDot = (index: number) => {
+    if (!emblaApi.value) return;
+    emblaApi.value.scrollTo(index);
+};
 
 onMounted(() => {
-    fetchPicturesApi()
-})
+    fetchPicturesApi();
+});
 
-watch([emblaRootNode, picturesArray], async ([rootNode, pictures]) => {
-    if (rootNode && pictures.length > 0) {
-        await nextTick();
+watch(
+    [emblaRootNode, picturesArray],
+    async ([rootNode, pictures]) => {
+        if (rootNode && pictures.length > 0) {
+            await nextTick();
 
-        const options = { loop: true }
-        const plugins = [Autoplay()]
-        const emblaInstance = EmblaCarousel(rootNode, options, plugins)
-        
-        emblaApi.value = emblaInstance
-        emblaApi.value.plugins().autoplay.play()
-        emblaApi.value.on('select', updateSelectedDot)
-        emblaApi.value.on('reInit', updateSelectedDot)
+            const options = { loop: true };
+            const plugins = [Autoplay()];
+            const emblaInstance = EmblaCarousel(rootNode, options, plugins);
 
-        updateSelectedDot()
-    }
-}, { deep: true })
+            emblaApi.value = emblaInstance;
+            emblaApi.value.plugins().autoplay.play();
+            emblaApi.value.on('select', updateSelectedDot);
+            emblaApi.value.on('reInit', updateSelectedDot);
+
+            updateSelectedDot();
+        }
+    },
+    { deep: true }
+);
 
 onUnmounted(() => {
     if (emblaApi.value) {
-        emblaApi.value.destroy()
+        emblaApi.value.destroy();
     }
-})
+});
 </script>
 
 <style lang="scss">

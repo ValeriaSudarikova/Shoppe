@@ -1,7 +1,11 @@
 <template>
     <div class="header-top">
         <NuxtLink to="/" class="header-top-logo">
-            <img class="header-top-logo-img" src="@/assets/images/logo.png" alt="Shoppe">
+            <img
+                class="header-top-logo-img"
+                src="@/assets/images/logo.png"
+                alt="Shoppe"
+            />
         </NuxtLink>
         <nav class="header-top-nav">
             <NavListPages />
@@ -10,10 +14,6 @@
         </nav>
     </div>
 </template>
-
-<script setup>
-
-</script>
 
 <style lang="scss">
 .header-top {
