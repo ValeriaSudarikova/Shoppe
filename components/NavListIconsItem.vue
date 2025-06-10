@@ -6,12 +6,12 @@
     >
         <button
             class="header-top-nav-list-item-link"
-            @click="router.push(link.to)"
+            @click="navigate(link.to)"
         >
             <img :src="link.src" :alt="link.alt" />
             <span
-                class="header-top-nav-list-item-span"
-                v-if="mobile.isMobile"
+                class="header-top-nav-list-item-link-span"
+                v-if="isMobile"
                 >{{ link.text }}</span
             >
         </button>
@@ -22,7 +22,8 @@
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const mobile = useHeaderMobile();
+const { isMobile } = toRefs(useHeaderMobile())
+const emit = defineEmits(['click-btn'])
 
 interface navIcon {
     src: string;
@@ -34,6 +35,11 @@ interface navIcon {
 defineProps<{
     icons: navIcon[];
 }>();
+
+function navigate(to: string) {
+    router.push(to)
+    emit('click-btn')
+}
 </script>
 
 <style lang="scss">
@@ -41,6 +47,12 @@ defineProps<{
     position: relative;
     transition: all 0.3s;
     background-color: transparent;
+
+    @media (max-width: $breakpoints-s) {
+        display: flex;
+        gap: 10px;
+        width: 100%;
+    }
 
     &:focus::before {
         content: '';
@@ -50,6 +62,14 @@ defineProps<{
         width: 100%;
         height: 2px;
         background-color: #000;
+
+        @media (max-width: $breakpoints-s) {
+            display: none;
+        }
+    }
+
+    &-span {
+        @include h3(#000);
     }
 }
 </style>

@@ -4,7 +4,7 @@
         :key="index"
         class="header-top-nav-pages-item"
     >
-        <NuxtLink :to="link.to" class="header-top-nav-pages-item-link">{{
+        <NuxtLink :to="link.to" class="header-top-nav-pages-item-link" @click="navigate">{{
             link.text
         }}</NuxtLink>
     </li>
@@ -19,6 +19,12 @@ interface navLink {
 defineProps<{
     items: navLink[];
 }>();
+
+const emit = defineEmits(['click-btn'])
+
+function navigate() {
+    emit('click-btn')
+}
 </script>
 
 <style lang="scss">
@@ -26,6 +32,16 @@ defineProps<{
     @include h5(#000);
     position: relative;
     transition: all 0.3s;
+
+    @media (max-width: $breakpoints-m) {
+        font-size: 14px;
+    }
+
+    @media (max-width: $breakpoints-s) {
+        @include h3(#000);
+        display: block;
+        width: 100%;
+    }
 
     &:focus::before {
         content: '';
@@ -35,6 +51,10 @@ defineProps<{
         width: 100%;
         height: 2px;
         background-color: #000;
+
+        @media (max-width: $breakpoints-s) {
+            display: none;
+        }
     }
 }
 </style>

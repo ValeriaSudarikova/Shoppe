@@ -1,14 +1,15 @@
 <template>
     <ul class="header-top-nav-pages">
-        <NavListPagesItems v-if="!mobile.isMobile" :items="navLinkPages" />
-        <NavListPagesItems v-else :items="navLinkPagesMedia" />
+        <NavListPagesItems v-if="!isMobile" :items="navLinkPages"/>
+        <NavListPagesItems v-else :items="navLinkPagesMedia" @click-btn="$emit('click-btn')"/>
     </ul>
 </template>
 
 <script setup>
 import NavListPagesItems from './NavListPagesItems.vue';
 
-const mobile = useHeaderMobile();
+const { isMobile } = toRefs(useHeaderMobile())
+defineEmits(['click-btn'])
 
 const navLinkPages = [
     { to: '/shop', text: 'Shop' },
@@ -31,5 +32,19 @@ const navLinkPagesMedia = [
 .header-top-nav-pages {
     display: flex;
     gap: 64px;
+
+    @media (max-width: $breakpoints-l) {
+        gap: 40px;
+    }
+
+    @media (max-width: $breakpoints-m) {
+        gap: 20px;
+    }
+
+    @media (max-width: $breakpoints-s) {
+        flex-direction: column;
+        gap: 24px;
+        width: 100%;
+    }
 }
 </style>

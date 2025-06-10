@@ -1,7 +1,7 @@
 <template>
     <ul class="header-top-nav-list">
-        <NavListIconsItem v-if="!mobile.isMobile" :icons="navLinkIcons" />
-        <NavListIconsItem v-else :icons="navLinkIconsMedia" />
+        <NavListIconsItem v-if="!isMobile" :icons="navLinkIcons" />
+        <NavListIconsItem v-else :icons="navLinkIconsMedia" @click-btn="$emit('click-btn')" />
     </ul>
 </template>
 
@@ -11,7 +11,8 @@ import CartIcon from '@/assets/images/icons/cart.svg';
 import AccountIcon from '@/assets/images/icons/account.svg';
 import LogoutIcon from '@/assets/images/icons/logout.svg';
 
-const mobile = useHeaderMobile();
+const { isMobile } = toRefs(useHeaderMobile())
+defineEmits(['click-btn'])
 
 const navLinkIcons = [
     { to: '/search', src: SearchIcon, alt: 'search' },
@@ -29,5 +30,15 @@ const navLinkIconsMedia = [
 .header-top-nav-list {
     display: flex;
     gap: 40px;
+
+    @media(max-width: $breakpoints-l) {
+        gap: 20px;
+    }
+
+    @media(max-width: $breakpoints-s) {
+        flex-direction: column;
+        gap: 24px;
+        width: 100%;
+    }
 }
 </style>

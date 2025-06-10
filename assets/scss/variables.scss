@@ -1,6 +1,9 @@
 @use '../fonts/fonts.scss' as *;
 
 $ff: 'DM Sans', sans-serif;
+$breakpoints-l: 900px;
+$breakpoints-m: 650px;
+$breakpoints-s: 550px;
 
 %h1 {
     font-family: $ff;

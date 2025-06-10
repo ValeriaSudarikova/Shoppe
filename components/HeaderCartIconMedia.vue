@@ -5,8 +5,8 @@
         </button>
         <button
             class="burger"
-            @click="openNav"
-            :class="{ close: toggleNav.nav }"
+            :class="{ 'close': nav }"
+            @click="toggleNavHeader"
         >
             <span class="burger-line"></span>
         </button>
@@ -17,13 +17,17 @@
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const toggleNav = useBurgerNav();
+const emit = defineEmits(['toggle-nav'])
+defineProps({
+    nav: Boolean
+})
 
 function goToCart() {
     router.push('/cart');
 }
-function openNav() {
-    toggleNav.toggleNav();
+
+function toggleNavHeader() {
+    emit('toggle-nav')
 }
 </script>
 

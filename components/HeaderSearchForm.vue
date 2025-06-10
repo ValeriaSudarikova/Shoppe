@@ -27,12 +27,13 @@ function goToShop() {
   align-items: center;
   margin-bottom: 16px;
   border-radius: 4px;
-  padding: 10px;
+  padding-left: 10px;
   background-color: #efefef;
 
     &-input {
       @include t-small(#707070);
-      margin-left: 8px;
+      padding: 10px;
+      width: 100%;
       background-color: transparent;
     }
 }

@@ -2,119 +2,13 @@
 @use '../fonts/fonts.scss' as *;
 @use './variables.scss' as *;
 
-$breakpoints-l: 900px;
-$breakpoints-m: 650px;
-$breakpoints-s: 550px;
-
 .container {
   width: 100%;
   margin: 0 auto;
   max-width: 1310px;
   padding: 0 30px;
 
-//   @media (min-width: $breakpoints-xl) {
-    
-//   }
-
-  @media (max-width: $breakpoints-l) {
-    .header-top {
-
-      &-nav-pages {
-        gap: 40px;
-      }
-
-      &-nav-line {
-        margin: 0 30px;
-      }
-
-      &-nav-list {
-        gap: 20px;
-      }
-    }
-  }
-
-  @media (max-width: $breakpoints-m) {
-    .header-top {
-
-      &-nav-pages {
-        gap: 20px;
-
-        &-item-link {
-          font-size: 14px;
-        }
-      }
-
-      &-nav-line {
-        margin: 0 20px;
-      }
-
-    }
-  }
-
   @media (max-width: $breakpoints-s) {
     padding: 0 16px;
-
-    .header-top {
-      padding: 15px 0;
-
-      &-nav {
-        position: fixed;
-        top: 100px;
-        left: 0;
-        right: 0;
-        flex-direction: column;
-        align-items: flex-start;
-        transform: translateX(100%);
-        transition: all .3s;
-        padding: 40px 16px 0;
-        background-color: #fff;
-
-        &-pages {
-          flex-direction: column;
-          gap: 24px;
-
-          &-item-link {
-            @include h3(#000);
-
-            &:focus::before {
-              display: none;
-            }
-          }
-        }
-
-        &-line {
-          margin: 40px 0 24px;
-          height: 2px;
-          width: 100%;
-          background-color: #D8D8D8;
-        }
-
-        &-list {
-          flex-direction: column;
-          gap: 24px;
-
-          &-item {
-            
-            &-link {
-              display: flex;
-              gap: 10px;
-
-              &:focus::before {
-                display: none;
-              }
-            }
-
-            &-span {
-              @include h3(#000);
-            }
-          }
-        }
-      }
-
-      .open {
-        transform: translateX(0%);
-        transition: all .3s;
-      }
-    }
   }
 }
