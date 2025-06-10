@@ -87,6 +87,13 @@ function closeNav() {
         }
     }
 
+    &-logo-img {
+        
+        @media (max-width: $breakpoints-s) {
+            width: 99px;
+        }
+    }
+
     .open {
         transform: translateX(0%);
         transition: all 0.3s;
