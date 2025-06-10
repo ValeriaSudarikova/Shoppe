@@ -37,6 +37,11 @@ defineProps<{
         max-width: 100%;
         max-height: 600px;
         width: 100%;
+
+        @media(max-width: $breakpoints-s) {
+            height: 354px;
+            object-fit: cover;
+        }
     }
 }
 </style>

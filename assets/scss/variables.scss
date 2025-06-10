@@ -1,6 +1,10 @@
 @use '../fonts/fonts.scss' as *;
 
 $ff: 'DM Sans', sans-serif;
+$breakpoints-l: 900px;
+$breakpoints-l-m: 700px;
+$breakpoints-m: 650px;
+$breakpoints-s: 550px;
 
 %h1 {
     font-family: $ff;
@@ -25,12 +29,12 @@ $ff: 'DM Sans', sans-serif;
     color: $color;
 }
 
-%h4 {
+@mixin h4($color) {
     font-family: $ff;
     font-weight: 500;
     font-size: 20px;
     line-height: 20px;
-    color: #a18a68;
+    color: $color;
 }
 
 @mixin h5($color) {

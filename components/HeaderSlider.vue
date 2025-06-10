@@ -87,6 +87,10 @@ onUnmounted(() => {
     font-size: 16px;
     font-family: $ff;
     text-align: center;
+
+    @media(max-width: $breakpoints-s) {
+        font-size: 14px;
+    }
 }
 
 .pictures-error {
@@ -117,11 +121,24 @@ onUnmounted(() => {
     gap: 14px;
     margin-top: -38px;
 
+    @media(max-width: $breakpoints-m) {
+        gap: 6px;
+    }
+
+    @media(max-width: $breakpoints-s) {
+        margin-top: -16px;
+    }
+
     .embla__dot {
         border-radius: 50%;
         width: 10px;
         height: 10px;
         background-color: #fff;
+
+        @media(max-width: $breakpoints-m) {
+            width: 4px;
+            height: 4px;
+        }
 
         &-selected {
             border: 2px solid #fff;
@@ -129,6 +146,11 @@ onUnmounted(() => {
             width: 18px;
             height: 18px;
             background-color: transparent;
+
+            @media(max-width: $breakpoints-m) {
+                width: 8px;
+                height: 8px;
+            }
         }
     }
 }

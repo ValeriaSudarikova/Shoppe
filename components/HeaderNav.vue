@@ -23,7 +23,7 @@
     padding: 66px 0 16px;
 
     &-nav {
-        display: flex;
+        display: none;
         align-items: center;
 
         &-line {
