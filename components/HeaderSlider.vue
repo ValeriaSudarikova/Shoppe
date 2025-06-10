@@ -30,11 +30,12 @@ import { usePicturesSlider } from '@/composables/useHeaderSlider';
 import { onMounted, onUnmounted, watch, ref, nextTick } from 'vue';
 import EmblaCarousel from 'embla-carousel';
 import Autoplay from 'embla-carousel-autoplay';
+import type { EmblaCarouselType } from 'embla-carousel'
 
 const { fetchPicturesApi, picturesArray, loading, error } = usePicturesSlider();
 
 const emblaRootNode = ref(null);
-const emblaApi = ref<any | null>(null);
+const emblaApi = ref<EmblaCarouselType | null>(null);
 const selectedDotIndex = ref(0);
 
 const updateSelectedDot = () => {

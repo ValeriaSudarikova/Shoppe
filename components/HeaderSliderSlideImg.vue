@@ -13,7 +13,7 @@
 interface Picture {
     download_url: string;
     alt?: string;
-    id: number;
+    id: number | string;
 }
 
 defineProps<{
