@@ -1,32 +1,28 @@
 <template>
     <ul class="header-top-nav-list">
-        <li
-            v-for="(link, index) in navLinkIcons"
-            :key="index"
-            class="header-top-nav-list-item"
-        >
-            <button
-                class="header-top-nav-list-item-link"
-                @click="router.push(link.to)"
-            >
-                <img :src="link.src" :alt="link.alt" />
-            </button>
-        </li>
+        <NavListIconsItem v-if="!isMobile" :icons="navLinkIcons" />
+        <NavListIconsItem v-else :icons="navLinkIconsMedia" @click-btn="$emit('click-btn')" />
     </ul>
 </template>
 
-<script setup lang="ts">
-import { useRouter } from 'vue-router';
+<script setup>
 import SearchIcon from '@/assets/images/icons/search.svg';
 import CartIcon from '@/assets/images/icons/cart.svg';
 import AccountIcon from '@/assets/images/icons/account.svg';
+import LogoutIcon from '@/assets/images/icons/logout.svg';
 
-const router = useRouter();
+const { isMobile } = toRefs(useHeaderMobile())
+defineEmits(['click-btn'])
 
 const navLinkIcons = [
     { to: '/search', src: SearchIcon, alt: 'search' },
     { to: '/cart', src: CartIcon, alt: 'cart' },
     { to: '/account', src: AccountIcon, alt: 'account' },
+];
+
+const navLinkIconsMedia = [
+    { to: '/account', src: AccountIcon, alt: 'account', text: 'My account' },
+    { to: '/', src: LogoutIcon, alt: 'logout', text: 'Logout' },
 ];
 </script>
 
@@ -35,20 +31,14 @@ const navLinkIcons = [
     display: flex;
     gap: 40px;
 
-    &-item-link {
-        position: relative;
-        background-color: transparent;
-        transition: all 0.3s;
+    @media(max-width: $breakpoints-l) {
+        gap: 20px;
+    }
 
-        &:focus::before {
-            content: '';
-            position: absolute;
-            bottom: -21px;
-            width: 100%;
-            height: 2px;
-            display: block;
-            background-color: #000;
-        }
+    @media(max-width: $breakpoints-s) {
+        flex-direction: column;
+        gap: 24px;
+        width: 100%;
     }
 }
 </style>

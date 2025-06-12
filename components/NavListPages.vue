@@ -1,22 +1,30 @@
 <template>
     <ul class="header-top-nav-pages">
-        <li
-            v-for="(link, index) in navLinkPages"
-            :key="index"
-            class="header-top-nav-pages-item"
-        >
-            <NuxtLink :to="link.to" class="header-top-nav-pages-item-link">{{
-                link.text
-            }}</NuxtLink>
-        </li>
+        <NavListPagesItems v-if="!isMobile" :items="navLinkPages"/>
+        <NavListPagesItems v-else :items="navLinkPagesMedia" @click-btn="$emit('click-btn')"/>
     </ul>
 </template>
 
-<script setup lang="ts">
+<script setup>
+import NavListPagesItems from './NavListPagesItems.vue';
+
+const { isMobile } = toRefs(useHeaderMobile())
+defineEmits(['click-btn'])
+
 const navLinkPages = [
     { to: '/shop', text: 'Shop' },
     { to: '/blog', text: 'Blog' },
     { to: '/about', text: 'Our Story' },
+];
+
+const navLinkPagesMedia = [
+    { to: '/', text: 'Home' },
+    { to: '/shop', text: 'Shop' },
+    { to: '/about', text: 'About' },
+    { to: '/blog', text: 'Blog' },
+    { to: '/', text: 'Help' },
+    { to: '/', text: 'Contact' },
+    { to: '/search', text: 'Search' },
 ];
 </script>
 
@@ -25,20 +33,18 @@ const navLinkPages = [
     display: flex;
     gap: 64px;
 
-    &-item-link {
-        @include h5(#000);
-        position: relative;
-        transition: all 0.3s;
+    @media (max-width: $breakpoints-l) {
+        gap: 40px;
+    }
 
-        &:focus::before {
-            content: '';
-            position: absolute;
-            bottom: -21px;
-            width: 100%;
-            height: 2px;
-            display: block;
-            background-color: #000;
-        }
+    @media (max-width: $breakpoints-m) {
+        gap: 20px;
+    }
+
+    @media (max-width: $breakpoints-s) {
+        flex-direction: column;
+        gap: 24px;
+        width: 100%;
     }
 }
 </style>

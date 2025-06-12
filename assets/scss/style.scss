@@ -8,16 +8,7 @@
   max-width: 1310px;
   padding: 0 30px;
 
-//   @media (min-width: $breakpoints-xxl) {
-    
-//   }
-//   @media (min-width: $breakpoints-xl) {
-    
-//   }
-//   @media (min-width: $breakpoints-l) {
-    
-//   }
-//   @media (min-width: $breakpoints-m) {
-    
-//   }
+  @media (max-width: $breakpoints-s) {
+    padding: 0 16px;
+  }
 }
