@@ -47,11 +47,11 @@ function closeNav() {
     }
 
     &-nav {
-        display: none;
         align-items: center;
 
         @media (max-width: $breakpoints-s) {
             position: fixed;
+            z-index: 100;
             top: 100px;
             left: 0;
             right: 0;
