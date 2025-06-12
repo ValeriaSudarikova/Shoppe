@@ -47,7 +47,7 @@ function closeNav() {
     }
 
     &-nav {
-        display: flex;
+        display: none;
         align-items: center;
 
         @media (max-width: $breakpoints-s) {

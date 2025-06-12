@@ -2,6 +2,7 @@
 
 $ff: 'DM Sans', sans-serif;
 $breakpoints-l: 900px;
+$breakpoints-l-m: 700px;
 $breakpoints-m: 650px;
 $breakpoints-s: 550px;
 
@@ -28,12 +29,12 @@ $breakpoints-s: 550px;
     color: $color;
 }
 
-%h4 {
+@mixin h4($color) {
     font-family: $ff;
     font-weight: 500;
     font-size: 20px;
     line-height: 20px;
-    color: #a18a68;
+    color: $color;
 }
 
 @mixin h5($color) {
@@ -69,10 +70,13 @@ $breakpoints-s: 550px;
 @mixin button-empty($border, $border-radius, $color) {
     border: $border;
     border-radius: $border-radius;
-    color: $color;
-    font-family: $ff;
+    height: 54px;
+    background-color: transparent;
     font-size: 20px;
+    font-family: $ff;
     font-weight: 700;
+    text-transform: capitalize;
+    color: $color;
 }
 
 %button-black {
