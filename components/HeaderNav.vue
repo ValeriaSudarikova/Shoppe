@@ -18,7 +18,6 @@
             <NavListIcons @click-btn="closeNav" />
         </nav>
     </div>
-    <HorizontalLine />
     <HeaderSearchForm v-if="isMobile" />
 </template>
 
@@ -47,6 +46,7 @@ function closeNav() {
     }
 
     &-nav {
+        display: flex;
         align-items: center;
 
         @media (max-width: $breakpoints-s) {
@@ -55,6 +55,7 @@ function closeNav() {
             top: 100px;
             left: 0;
             right: 0;
+            bottom: 0;
             flex-direction: column;
             align-items: flex-start;
             transform: translateX(100%);
