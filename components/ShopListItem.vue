@@ -5,16 +5,14 @@
             item.title
         }}</NuxtLink>
         <h4 class="shop-list-item-price">$ {{ item.price }}</h4>
-        <ShopListBtn @add-cart="addCart(item.id)" />
-        <transition>
-            <div v-if="notificationId === item.id" class="notification">
-                ADD TO CART
-            </div>
-        </transition>
+        <ShopListButtons @add-cart="addCart(item.id)" />
     </li>
+    <NotificationAddCart :item="item" :notification-id="notificationId" />
 </template>
 
 <script setup lang="ts">
+import { useShopList } from '@/composables/useShopList';
+
 interface Product {
     id: number;
     image: string;
@@ -26,8 +24,7 @@ defineProps<{
     item: Product;
 }>();
 
-const { addCart } = addNotificationCard();
-const { notificationId } = toRefs(addNotificationCard());
+const { addCart, notificationId } = useShopList();
 </script>
 
 <style lang="scss">
@@ -44,6 +41,7 @@ const { notificationId } = toRefs(addNotificationCard());
         max-height: 380px;
         width: 100%;
         height: 100%;
+        object-fit: contain;
 
         @media (max-width: $breakpoints-m) {
             max-width: 200px;
@@ -92,38 +90,5 @@ const { notificationId } = toRefs(addNotificationCard());
             @include t-small(#a18a68);
         }
     }
-}
-
-.notification {
-    @include t-large(#000);
-    position: absolute;
-    bottom: 112px;
-    align-content: center;
-    display: block;
-    width: 100%;
-    max-height: 66px;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.5);
-    text-align: center;
-
-    @media (max-width: $breakpoints-m) {
-        max-height: 50px;
-    }
-
-    @media (max-width: $breakpoints-s) {
-        bottom: 88px;
-        max-height: 32px;
-        font-size: 12px;
-    }
-}
-
-.v-enter-active,
-.v-leave-active {
-    transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-    opacity: 0;
 }
 </style>

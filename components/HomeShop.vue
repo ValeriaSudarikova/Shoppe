@@ -1,7 +1,7 @@
 <template>
     <div class="shop">
         <div class="shop-head">
-            <h2 class="shop-head-heading">Shop The Latest</h2>
+            <h2 class="shop-head-title">Shop The Latest</h2>
             <NuxtLink to="/shop" class="shop-head-view">View All</NuxtLink>
         </div>
         <ShopList />
@@ -26,7 +26,7 @@
             margin-bottom: 14px;
         }
 
-        &-heading {
+        &-title {
             @extend %h1;
 
             @media (max-width: $breakpoints-m) {

@@ -28,7 +28,6 @@ defineProps<{
     align-items: center;
     overflow: hidden;
     border-radius: 16px;
-    max-width: 1000px;
     width: 100%;
 
     &-img {

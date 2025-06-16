@@ -4,7 +4,7 @@
         <p v-if="error" class="shop-error">{{ error }}</p>
         <ul
             v-if="showShopList.length > 0"
-            :mobile="updateShopListMobile"
+            :data-mobile="updateShopListMobile"
             class="shop-list"
         >
             <ShopListItem
@@ -18,9 +18,9 @@
 
 <script setup>
 import { onMounted } from 'vue';
+import { useShopList } from '@/composables/useShopList';
 
-const { fetchShopList } = useShopList();
-const { loading, error, ShopListMini } = toRefs(useShopList());
+const { fetchShopList, loading, error, shopListMini } = useShopList();
 const { isMobile } = toRefs(useHeaderMobile());
 
 onMounted(() => {
@@ -29,12 +29,12 @@ onMounted(() => {
 
 function updateShopListMobile() {
     if (isMobile.value === true) {
-        const ShopListMini = ShopListMini.value.slice(0, 4);
+        const shopListMini = shopListMini.value.slice(0, 4);
     }
 }
 
 const showShopList = computed(() => {
-    return isMobile.value ? ShopListMini.value.slice(0, 4) : ShopListMini.value;
+    return isMobile.value ? shopListMini.value.slice(0, 4) : shopListMini.value;
 });
 </script>
 
