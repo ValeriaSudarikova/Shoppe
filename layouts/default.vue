@@ -5,6 +5,10 @@
             <HorizontalLine v-if="!showLine" />
         </header>
         <slot />
+        <footer>
+            <HorizontalLine />
+            <FooterNav />
+        </footer>
     </div>
 </template>
 
