@@ -1,15 +1,16 @@
 export const useShopList = () => {
-    interface ShopListArray {
+    interface ShopList {
         id: string;
         image: string;
         title: string;
         price: number;
     }
 
-    const shopListGlobal = ref<ShopListArray[]>([]);
-    const shopListMini = ref<ShopListArray[]>([]);
+    const shopListGlobal = ref<ShopList[]>([]);
     const loading = ref(false);
     const error = ref<string | null>(null);
+
+    const shopListMini = computed(() => shopListGlobal.value.slice(0, 6));
 
     const fetchShopList = async () => {
         loading.value = true;
@@ -21,7 +22,6 @@ export const useShopList = () => {
             );
             const data = await response.json();
             shopListGlobal.value = data;
-            shopListMini.value = data.slice(0, 6);
         } catch (e: unknown) {
             error.value = `Error! ${e}`;
         } finally {

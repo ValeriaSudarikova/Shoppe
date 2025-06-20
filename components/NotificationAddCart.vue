@@ -17,25 +17,28 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
+interface Props {
     item: {
         id: number;
     };
     notificationId: number | null;
-}>();
+}
+
+defineProps<Props>();
 </script>
 
 <style lang="scss">
 .notification {
     position: fixed;
     z-index: 10;
-    top: 0;
+    top: 20px;
     left: 0;
     right: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
+    border-radius: 8px;
     width: calc(100% - 30px);
     max-width: 1250px;
     padding: 24px 24px 24px 40px;
