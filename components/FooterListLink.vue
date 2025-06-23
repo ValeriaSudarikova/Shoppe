@@ -32,7 +32,7 @@ const items = [
 
     &-item-link {
         @include h5(#707070);
-        @extend %trans;
+        @extend %transition;
 
         &:hover {
             color: #000;

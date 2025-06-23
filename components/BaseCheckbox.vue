@@ -1,23 +1,27 @@
 <template>
-    <label class="footer-top-form-checkbox">
-        <div class="footer-top-form-checkbox-box">
+    <label class="base-checkbox">
+        <div class="base-checkbox-box">
             <input
                 v-model="model"
                 type="checkbox"
-                class="footer-top-form-checkbox-box-default"
+                class="base-checkbox-box-default"
             />
-            <span class="footer-top-form-checkbox-box-custom"></span>
+            <span class="base-checkbox-box-custom"></span>
         </div>
-        i agree to the website’s terms and conditions
+        {{ label }}
     </label>
 </template>
 
 <script setup lang="ts">
 const model = defineModel<boolean>();
+
+defineProps<{
+    label: string;
+}>();
 </script>
 
 <style lang="scss">
-.footer-top-form-checkbox {
+.base-checkbox {
     @include t-small(#000);
     position: absolute;
     bottom: -28px;
@@ -51,7 +55,8 @@ const model = defineModel<boolean>();
 
         &-default:checked + &-custom {
             border: 1px solid #a18a68;
-            background: url('@/assets/images/icons/check.svg') 50% 50% no-repeat #a18a68;
+            background: url('@/assets/images/icons/check.svg') 50% 50% no-repeat
+                #a18a68;
         }
     }
 }

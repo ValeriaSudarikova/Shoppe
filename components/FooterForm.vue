@@ -4,21 +4,25 @@
         method="post"
         class="footer-top-form"
         novalidate
-        @submit.prevent="isValidateForm"
+        @submit.prevent="isFormValidated"
     >
-        <input
+        <BaseInput
             v-model="email"
             type="email"
-            class="footer-top-form-input"
             placeholder="Give an email, get the newsletter."
+            :error="errors[0]"
             @focus="showCheckbox = true"
             @blur="validateForm"
         />
-        <FooterFormArrow />
-        <CustomCheckbox v-if="addCheckbox" v-model="isChecked" />
-        <p v-if="errors.length > 0" class="footer-top-form-error">
-            {{ errors[0] }}
-        </p>
+        <button type="submit" class="footer-top-form-btn">
+            <FooterFormArrow />
+        </button>
+        <BaseCheckbox
+            v-if="addCheckbox"
+            v-model="isChecked"
+            label="i agree to the website’s terms and conditions"
+        />
+        <SuccessfullNotification v-if="successfulNotification" />
     </form>
 </template>
 
@@ -27,15 +31,12 @@ import { useValidateForm } from '@/composables/useValidateForm';
 import { useSavedEmails } from '@/composables/useSavedEmails';
 const { isMobile } = toRefs(useHeaderMobile());
 const { showValidateError, errors } = useValidateForm();
+const showCheckbox = ref(false);
+const email = ref('');
+const isChecked = ref(false);
+const successfulNotification = ref(false);
 
-const {
-    showCheckbox,
-    email,
-    isChecked,
-    savedEmails,
-    saveEmailToLocalStorage,
-    resetForm,
-} = useSavedEmails();
+const { savedEmails, saveEmailToLocalStorage } = useSavedEmails();
 
 const addCheckbox = computed(() => {
     return isMobile.value || showCheckbox.value;
@@ -43,10 +44,24 @@ const addCheckbox = computed(() => {
 
 const validateForm = () => showValidateError(email.value, isChecked.value);
 
-const isValidateForm = async () => {
+const resetForm = () => {
+    email.value = '';
+    isChecked.value = false;
+    showCheckbox.value = false;
+    successfulNotification.value = true;
+};
+
+const removeSuccessfulNotification = () => {
+    setTimeout(() => {
+        successfulNotification.value = false;
+    }, 5000);
+};
+
+const isFormValidated = async () => {
     if (!validateForm()) return;
     saveEmailToLocalStorage(email.value);
     resetForm();
+    removeSuccessfulNotification();
 };
 
 onMounted(() => {
@@ -56,6 +71,8 @@ onMounted(() => {
 watch(isMobile, (newVal) => {
     if (newVal) {
         showCheckbox.value = true;
+    } else {
+        showCheckbox.value = false;
     }
 });
 </script>
@@ -73,23 +90,22 @@ watch(isMobile, (newVal) => {
         max-width: 100%;
     }
 
-    &-input {
-        @include h5(#707070);
-        width: 100%;
-        padding-bottom: 14px;
+    .footer-top-form-btn {
+        padding: 12px 0;
         background-color: transparent;
 
-        @media (max-width: $breakpoints-s) {
-            @include t-small(#707070);
-            padding-bottom: 6px;
+        &:hover {
+            .footer-top-form-btn-svg path {
+                @extend %transition;
+                fill: #000;
+            }
         }
-    }
 
-    &-error {
-        position: absolute;
-        bottom: -50px;
-        font-size: 12px;
-        color: #d82700;
+        &-svg {
+            @media (max-width: $breakpoints-s) {
+                width: 15px;
+            }
+        }
     }
 }
 </style>

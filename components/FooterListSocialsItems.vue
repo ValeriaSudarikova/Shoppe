@@ -1,43 +1,25 @@
 <template>
     <li
-        v-for="(social, index) in items"
+        v-for="(social, index) in socials"
         :key="index"
         class="footer-bottom-list-item"
     >
         <a :href="social.href" class="footer-bottom-list-item-social">
-            <svg
-                :width="social.width"
-                :height="social.height"
-                :viewBox="social.viewBox"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                class="footer-bottom-list-item-social-svg"
-            >
-                <path
-                    :fill-rule="social?.fillrule"
-                    :clip-rule="social?.cliprule"
-                    :d="social.d"
-                    fill="#707070"
-                />
-            </svg>
+            <component :is="social.img" />
         </a>
     </li>
 </template>
 
 <script setup lang="ts">
-interface socialItems {
-    href: string;
-    width: number;
-    height: number;
-    viewBox: string;
-    fillrule: 'nonzero' | 'evenodd' | 'inherit' | undefined;
-    cliprule: string;
-    d: string;
-}
+import FacebookItem from './FacebookItem.vue';
+import InstItem from './InstItem.vue';
+import TwitterItem from './TwitterItem.vue';
 
-defineProps<{
-    items: socialItems[];
-}>();
+const socials = [
+    { href: '#', img: FacebookItem },
+    { href: '#', img: InstItem },
+    { href: '#', img: TwitterItem },
+];
 </script>
 
 <style lang="scss">
@@ -48,7 +30,7 @@ defineProps<{
 
     &:hover {
         .footer-bottom-list-item-social-svg path {
-            @extend %trans;
+            @extend %transition;
             fill: #000;
         }
     }
