@@ -1,6 +1,10 @@
 <template>
     <transition>
-        <div v-if="notificationId === item.id" class="notification">
+        <div
+            v-if="notificationId === item.id"
+            class="notification"
+            :style="{ top: notificationTop }"
+        >
             <div class="notification-message">
                 <img
                     src="@/assets/images/icons/checked.svg"
@@ -25,13 +29,41 @@ interface Props {
 }
 
 defineProps<Props>();
+
+const notificationTop = ref('20px');
+const isScrolled = ref(false);
+const headerHeight = ref(100);
+
+const updatePosition = () => {
+    const scroll = window.scrollY;
+    isScrolled.value = scroll > 40;
+
+    notificationTop.value = isScrolled.value
+        ? '20px'
+        : `${headerHeight.value}px`;
+};
+
+onMounted(() => {
+    setTimeout(() => {
+        const header = document.querySelector('.header');
+        if (header) {
+            headerHeight.value = header.clientHeight;
+        }
+        updatePosition();
+    }, 50);
+
+    window.addEventListener('scroll', updatePosition);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('scroll', updatePosition);
+});
 </script>
 
 <style lang="scss">
 .notification {
     position: fixed;
     z-index: 10;
-    top: 20px;
     left: 0;
     right: 0;
     display: flex;
@@ -39,8 +71,8 @@ defineProps<Props>();
     justify-content: space-between;
     margin: 0 auto;
     border-radius: 8px;
-    width: calc(100% - 30px);
-    max-width: 1250px;
+    width: calc(100% - 60px);
+    max-width: 1500px;
     padding: 24px 24px 24px 40px;
     background-color: #efefee;
 
@@ -49,6 +81,7 @@ defineProps<Props>();
     }
 
     @media (max-width: $breakpoints-s) {
+        width: calc(100% - 30px);
         padding: 10px 10px 10px 15px;
     }
 
