@@ -62,6 +62,7 @@ onUnmounted(() => {
 
 <style lang="scss">
 .notification {
+    @extend %transition;
     position: fixed;
     z-index: 10;
     left: 0;
@@ -107,11 +108,11 @@ onUnmounted(() => {
 
     &-link {
         @include t-large(#a18a68);
-        @extend %trans;
+        @extend %transition;
 
         &:hover,
         &:active {
-            @extend %trans;
+            @extend %transition;
             color: #000;
         }
 

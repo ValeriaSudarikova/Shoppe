@@ -1,12 +1,12 @@
 export const useShopList = () => {
-    interface ShopList {
+    interface ShopItem {
         id: string;
         image: string;
         title: string;
         price: number;
     }
 
-    const shopListGlobal = ref<ShopList[]>([]);
+    const shopListGlobal = ref<ShopItem[]>([]);
     const loading = ref(false);
     const error = ref<string | null>(null);
 

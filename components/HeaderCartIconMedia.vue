@@ -48,7 +48,7 @@ function toggleNavHeader() {
     background-color: transparent;
 
     &-line {
-        @extend %trans;
+        @extend %transition;
         display: block;
         width: 20px;
         height: 2px;
@@ -77,7 +77,7 @@ function toggleNavHeader() {
 }
 .close {
     .burger-line {
-        @extend %trans;
+        @extend %transition;
         transform: rotate(45deg);
 
         &::before {

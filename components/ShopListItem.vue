@@ -56,7 +56,7 @@ const { addCart, notificationId } = useShopList();
 
     &-title {
         @include h3(#000);
-        @extend %trans;
+        @extend %transition;
         display: -webkit-box;
         overflow: hidden;
         margin: 24px 0 16px;

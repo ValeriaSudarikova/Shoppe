@@ -40,7 +40,7 @@
 
         &-view {
             @include h4(#a18a68);
-            @extend %trans;
+            @extend %transition;
 
             @media (max-width: $breakpoints-m) {
                 font-size: 16px;
@@ -52,7 +52,7 @@
 
             &:hover,
             &:active {
-                @extend %trans;
+                @extend %transition;
                 font-weight: 700;
                 color: #000;
             }
