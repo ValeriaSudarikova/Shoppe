@@ -1,6 +1,7 @@
 @use '../fonts/fonts.scss' as *;
 
 $ff: 'DM Sans', sans-serif;
+$breakpoints-xl: 1000px;
 $breakpoints-l: 900px;
 $breakpoints-l-m: 700px;
 $breakpoints-m: 650px;
@@ -88,6 +89,6 @@ $breakpoints-s: 550px;
     font-size: 16px;
 }
 
-%trans {
+%transition {
     transition: all .3s;
 }

@@ -18,7 +18,6 @@
             <NavListIcons @click-btn="closeNav" />
         </nav>
     </div>
-    <HorizontalLine />
     <HeaderSearchForm v-if="isMobile" />
 </template>
 
