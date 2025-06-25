@@ -13,7 +13,7 @@
             @toggle-nav="toggleNav"
         />
         <nav class="header-top-nav" :class="{ open: nav }">
-            <NavListPages @click-btn="closeNav"/>
+            <NavListPages @click-btn="closeNav" />
             <span class="header-top-nav-line"></span>
             <NavListIcons @click-btn="closeNav" />
         </nav>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-const { isMobile } = toRefs(useHeaderMobile())
+const { isMobile } = toRefs(useHeaderMobile());
 const nav = ref(false);
 
 function toggleNav() {
@@ -30,7 +30,7 @@ function toggleNav() {
 }
 
 function closeNav() {
-    nav.value = false
+    nav.value = false;
 }
 </script>
 
@@ -46,6 +46,7 @@ function closeNav() {
     }
 
     &-nav {
+        display: flex;
         align-items: center;
 
         @media (max-width: $breakpoints-s) {
@@ -54,6 +55,7 @@ function closeNav() {
             top: 100px;
             left: 0;
             right: 0;
+            bottom: 0;
             flex-direction: column;
             align-items: flex-start;
             transform: translateX(100%);
@@ -87,7 +89,6 @@ function closeNav() {
     }
 
     &-logo-img {
-        
         @media (max-width: $breakpoints-s) {
             width: 99px;
         }
