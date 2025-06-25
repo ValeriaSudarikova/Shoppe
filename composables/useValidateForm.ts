@@ -1,21 +1,20 @@
 export const useValidateForm = () => {
     const errors = ref<string[]>([]);
+    const email = ref('');
 
-    const isValidEmail = (email: string) => {
-        return computed(() => {
-            const emailTest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailTest.test(email);
-        });
-    };
+    const isValidEmail = computed(() => {
+        const emailTest = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailTest.test(email.value);
+    });
 
     const showValidateError = (value: string, isCheckboxChecked: boolean) => {
         errors.value = [];
-        const email = isValidEmail(value);
+        email.value = value;
 
         if (!value || value.trim() === '') {
             errors.value.push('Enter your email address');
         }
-        if (!email.value) {
+        if (!isValidEmail.value) {
             errors.value.push('The email address is incorrect');
         }
         if (!isCheckboxChecked) {

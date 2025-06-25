@@ -13,12 +13,3 @@
         />
     </svg>
 </template>
-
-<style lang="scss">
-.facebook {
-    
-    @media (max-width: $breakpoints-s) {
-        width: 8px;
-    }
-}
-</style>

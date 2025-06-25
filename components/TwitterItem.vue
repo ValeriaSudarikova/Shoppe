@@ -13,12 +13,3 @@
         />
     </svg>
 </template>
-
-<style lang="scss">
-.twitter {
-
-    @media(max-width: $breakpoints-s) {
-        width: 14px;
-    }
-}
-</style>

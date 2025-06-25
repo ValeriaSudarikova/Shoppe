@@ -35,4 +35,25 @@ const socials = [
         }
     }
 }
+
+.facebook {
+    
+    @media (max-width: $breakpoints-s) {
+        width: 8px;
+    }
+}
+
+.inst {
+    
+    @media (max-width: $breakpoints-s) {
+        width: 12px;
+    }
+}
+
+.twitter {
+
+    @media(max-width: $breakpoints-s) {
+        width: 14px;
+    }
+}
 </style>

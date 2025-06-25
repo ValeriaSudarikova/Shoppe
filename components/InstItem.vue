@@ -15,12 +15,3 @@
         />
     </svg>
 </template>
-
-<style lang="scss">
-.inst {
-    
-    @media (max-width: $breakpoints-s) {
-        width: 12px;
-    }
-}
-</style>

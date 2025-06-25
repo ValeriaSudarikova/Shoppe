@@ -4,7 +4,7 @@
         method="post"
         class="footer-top-form"
         novalidate
-        @submit.prevent="isFormValidated"
+        @submit.prevent="processValidForm"
     >
         <BaseInput
             v-model="email"
@@ -57,7 +57,7 @@ const removeSuccessfulNotification = () => {
     }, 5000);
 };
 
-const isFormValidated = async () => {
+const processValidForm = async () => {
     if (!validateForm()) return;
     saveEmailToLocalStorage(email.value);
     resetForm();
