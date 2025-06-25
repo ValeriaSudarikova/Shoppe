@@ -1,5 +1,3 @@
 <template>
-    <div>
-        Shop
-    </div>
+    <ShopPage />
 </template>
