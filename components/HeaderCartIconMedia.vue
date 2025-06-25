@@ -3,11 +3,7 @@
         <button class="header-icons-cart" @click="goToCart">
             <img src="@/assets/images/icons/cart.svg" alt="cart" />
         </button>
-        <button
-            class="burger"
-            :class="{ 'close': nav }"
-            @click="toggleNavHeader"
-        >
+        <button class="burger" :class="{ close: nav }" @click="toggleNavHeader">
             <span class="burger-line"></span>
         </button>
     </div>
@@ -17,17 +13,17 @@
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const emit = defineEmits(['toggle-nav'])
+const emit = defineEmits(['toggle-nav']);
 defineProps({
-    nav: Boolean
-})
+    nav: Boolean,
+});
 
 function goToCart() {
     router.push('/cart');
 }
 
 function toggleNavHeader() {
-    emit('toggle-nav')
+    emit('toggle-nav');
 }
 </script>
 
@@ -48,7 +44,7 @@ function toggleNavHeader() {
     background-color: transparent;
 
     &-line {
-        @extend %trans;
+        @extend %transition;
         display: block;
         width: 20px;
         height: 2px;
@@ -77,7 +73,7 @@ function toggleNavHeader() {
 }
 .close {
     .burger-line {
-        @extend %trans;
+        @extend %transition;
         transform: rotate(45deg);
 
         &::before {

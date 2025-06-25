@@ -28,17 +28,14 @@ defineProps<{
     align-items: center;
     overflow: hidden;
     border-radius: 16px;
-    max-width: 1000px;
     width: 100%;
 
     &-img {
         opacity: 0.8;
         border-radius: 16px;
-        max-width: 100%;
-        max-height: 600px;
         width: 100%;
 
-        @media(max-width: $breakpoints-s) {
+        @media (max-width: $breakpoints-s) {
             height: 354px;
             object-fit: cover;
         }

@@ -1,6 +1,7 @@
 <template>
     <main>
         <HeaderSlider />
+        <HomeShop />
     </main>
 </template>
 
