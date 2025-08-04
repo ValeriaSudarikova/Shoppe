@@ -26,6 +26,7 @@ onMounted(() => {
     fetchShopList();
 });
 
+
 function updateShopListMobile() {
     if (isMobile.value === true) {
         const shopListMini = shopListMini.value.slice(0, 4);
