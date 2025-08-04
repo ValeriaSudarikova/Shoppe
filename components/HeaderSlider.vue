@@ -1,7 +1,6 @@
 <template>
     <div>
-        <p v-if="loading" class="pictures-loading">Loading...</p>
-        <p v-if="error" class="pictures-error">{{ error }}</p>
+        <LoadingError :loading="loading" :error="error" />
         <div v-if="picturesArray.length" class="embla" ref="emblaRootNode">
             <div class="embla__container">
                 <div
@@ -81,22 +80,6 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss">
-.pictures-loading,
-.pictures-error {
-    margin: 30px 0;
-    font-size: 16px;
-    font-family: $ff;
-    text-align: center;
-
-    @media(max-width: $breakpoints-s) {
-        font-size: 14px;
-    }
-}
-
-.pictures-error {
-    color: red;
-}
-
 .embla {
     overflow: hidden;
     width: 100%;

@@ -1,0 +1,37 @@
+<template>
+    <label class="filters-input">
+        <BaseInput v-model="modelValue" placeholder="Search..." />
+        <button class="filters-input-button" >
+            <img
+                src="@/assets/images/icons/search.svg"
+                alt="search"
+                class="filters-input-button-img"
+            />
+        </button>
+    </label>
+</template>
+
+<script setup lang="ts">
+const modelValue = defineModel<string>()
+</script>
+
+<style lang="scss">
+.filters-input {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #d8d8d8;
+    padding-bottom: 12px;
+
+    .base-input {
+        padding-bottom: 0;
+
+        @media (max-width: $breakpoints-s) {
+            @include t-medium(#707070);
+        }
+    }
+
+    &-button {
+        background-color: transparent;
+    }
+}
+</style>

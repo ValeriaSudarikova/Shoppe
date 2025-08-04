@@ -5,26 +5,26 @@
             item.title
         }}</NuxtLink>
         <h4 class="shop-list-item-price">$ {{ item.price }}</h4>
+        <span v-if="item.sale" class="badge">{{ saleDiscount(item) }}</span>
+        <span v-if="!item.stock" class="badge">Sold out</span>
         <ShopListButtons @add-cart="addCart(item.id)" />
     </li>
     <NotificationAddCart :item="item" :notification-id="notificationId" />
 </template>
 
 <script setup lang="ts">
-import { useShopList } from '@/composables/useShopList';
-
-interface Product {
-    id: number;
-    image: string;
-    title: string;
-    price: number;
-}
+import { useShopList, type ShopItem } from '@/composables/useShopList';
 
 defineProps<{
-    item: Product;
+    item: ShopItem;
 }>();
 
 const { addCart, notificationId } = useShopList();
+
+const saleDiscount = (item: ShopItem) => {
+    const discount = 5 + (item.id.toString().charCodeAt(0) % 50)
+    return `- ${discount}%`;
+}
 </script>
 
 <style lang="scss">
@@ -37,8 +37,8 @@ const { addCart, notificationId } = useShopList();
 
     &-img {
         border-radius: 8px;
-        max-width: 380px;
-        max-height: 380px;
+        max-width: var(--img-width, 380px);
+        max-height: var(--img-height, 380px);
         width: 100%;
         height: 100%;
         object-fit: contain;
@@ -60,7 +60,7 @@ const { addCart, notificationId } = useShopList();
         display: -webkit-box;
         overflow: hidden;
         margin: 24px 0 16px;
-        -webkit-line-clamp: 2;
+        -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
 
         @media (max-width: $breakpoints-m) {
@@ -89,6 +89,23 @@ const { addCart, notificationId } = useShopList();
         @media (max-width: $breakpoints-s) {
             @include t-small(#a18a68);
         }
+    }
+}
+
+.badge {
+    @include t-small(#fff);
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    border-radius: 4px;
+    padding: 2px 8px;
+    background-color: #a18a68;
+
+    @media (max-width: $breakpoints-s) {
+        top: 10px;
+        left: 10px;
+        font-size: 10px;
+        line-height: 15px;
     }
 }
 </style>

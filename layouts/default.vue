@@ -2,7 +2,7 @@
     <div class="container">
         <header>
             <HeaderNav />
-            <HorizontalLine v-if="!showLine" />
+            <HorizontalLine v-if="!showLine && !isMobile" />
         </header>
         <slot />
         <footer>

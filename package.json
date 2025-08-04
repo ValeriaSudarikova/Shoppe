@@ -17,12 +17,16 @@
         "embla-carousel-autoplay": "^8.6.0",
         "embla-carousel-vue": "^8.6.0",
         "eslint": "^9.26.0",
+        "lodash": "^4.17.21",
         "nuxt": "^3.17.3",
         "pinia": "^3.0.3",
+        "primevue": "^4.3.5",
         "vue": "^3.5.13",
         "vue-router": "^4.5.1"
     },
     "devDependencies": {
+        "@primevue/nuxt-module": "^4.3.5",
+        "@types/lodash": "^4.17.20",
         "prettier": "^3.5.3",
         "sass-embedded": "^1.89.0"
     }

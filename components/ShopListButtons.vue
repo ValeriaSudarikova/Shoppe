@@ -64,8 +64,8 @@ const buttons = [
     align-items: center;
     gap: 30px;
     transition: all 0.9s;
-    max-width: 380px;
-    max-height: 380px;
+    max-width: var(--btn-hover-width, 380px);
+    max-height: var(--btn-hover-height, 380px);
     width: 100%;
     height: 100%;
     background-color: rgba(255, 255, 255, 0);

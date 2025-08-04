@@ -1,7 +1,6 @@
 <template>
     <div>
-        <p v-if="loading" class="shop-loading">Loading...</p>
-        <p v-if="error" class="shop-error">{{ error }}</p>
+        <LoadingError :loading="loading" :error="error" />
         <ul
             v-if="showShopList.length > 0"
             :data-mobile="updateShopListMobile"
@@ -39,22 +38,6 @@ const showShopList = computed(() => {
 </script>
 
 <style lang="scss">
-.shop-loading,
-.shop-error {
-    margin: 30px 0;
-    font-size: 16px;
-    font-family: $ff;
-    text-align: center;
-
-    @media (max-width: $breakpoints-s) {
-        font-size: 14px;
-    }
-}
-
-.shop-error {
-    color: red;
-}
-
 .shop-list {
     display: grid;
     grid-template: repeat(2, 1fr) / repeat(3, minmax(auto, 1fr));

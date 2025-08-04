@@ -16,7 +16,7 @@
 const model = defineModel<string>();
 
 defineProps<{
-    type: string;
+    type?: string;
     placeholder: string;
     error?: string;
 }>();

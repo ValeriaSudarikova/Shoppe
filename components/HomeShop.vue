@@ -13,7 +13,7 @@
     padding: 102px 0 220px;
 
     @media (max-width: $breakpoints-s) {
-        padding: 22px 0 94px;
+        padding: 38px 0 94px;
     }
 
     &-head {

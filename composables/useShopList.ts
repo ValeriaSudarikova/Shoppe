@@ -1,11 +1,14 @@
-export const useShopList = () => {
-    interface ShopItem {
-        id: string;
-        image: string;
-        title: string;
-        price: number;
-    }
+export interface ShopItem {
+    id: number;
+    image: string;
+    title: string;
+    price: number;
+    sale: boolean;
+    stock: boolean;
+    category: string;
+}
 
+export const useShopList = () => {
     const shopListGlobal = ref<ShopItem[]>([]);
     const loading = ref(false);
     const error = ref<string | null>(null);
@@ -17,11 +20,14 @@ export const useShopList = () => {
         error.value = null;
 
         try {
-            const response = await fetch(
-                'https://fakestoreapi.com/products/category/electronics'
-            );
+            const response = await fetch('https://fakestoreapi.com/products');
             const data = await response.json();
-            shopListGlobal.value = data;
+            shopListGlobal.value = data.map((product: ShopItem) => ({
+                ...product,
+                sale: Math.random() < 0.3,
+                stock: Math.random() < 0.8,
+                category: product.category
+            }));
         } catch (e: unknown) {
             error.value = `Error! ${e}`;
         } finally {
