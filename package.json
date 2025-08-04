@@ -30,6 +30,7 @@
         "embla-carousel-autoplay": "^8.6.0",
         "embla-carousel-vue": "^8.6.0",
         "eslint": "^9.26.0",
+        "eslint-config-prettier": "^10.1.8",
         "husky": "^9.1.7",
         "lodash": "^4.17.21",
         "nuxt": "^3.17.3",
