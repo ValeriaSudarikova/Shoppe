@@ -1,19 +1,23 @@
 <template>
-    <div class="container">
-        <header>
-            <HeaderNav />
-            <HorizontalLine v-if="!showLine && !isMobile" />
-        </header>
-        <slot />
-        <footer>
-            <HorizontalLine v-if="!isMobile" />
-            <FooterNav />
-        </footer>
-    </div>
+  <div class="container">
+    <header>
+      <HeaderNav />
+      <HorizontalLine v-if="!showLine && !isMobile" />
+    </header>
+    <slot />
+    <footer>
+      <HorizontalLine v-if="!isMobile" />
+      <FooterNav />
+    </footer>
+  </div>
 </template>
 
 <script setup lang="ts">
-const route = useRoute();
-const showLine = computed(() => route.meta.showHeaderHorizontalLine);
-const { isMobile } = toRefs(useHeaderMobile());
+  import { toRefs, computed } from 'vue'
+  import { useRoute } from 'vue-router'
+  import { useHeaderMobile } from '@/stores/modileVersion'
+
+  const route = useRoute()
+  const showLine = computed(() => route.meta.showHeaderHorizontalLine)
+  const { isMobile } = toRefs(useHeaderMobile())
 </script>
