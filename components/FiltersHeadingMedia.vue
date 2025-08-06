@@ -1,54 +1,47 @@
 <template>
-    <div class="filters-heading">
-        <img
-            src="@/assets/images/Filters.png"
-            alt="Filters-heading"
-            class="filters-heading-img"
-        />
-        <button
-            type="button"
-            class="filters-heading-close"
-            @click="$emit('close')"
-        >
-            <span class="filters-heading-close-line"></span>
-        </button>
-    </div>
+  <div class="filters-heading">
+    <img src="@/assets/images/Filters.png" alt="Filters-heading" class="filters-heading-img" />
+    <button type="button" class="filters-heading-close" @click="$emit('close')">
+      <span class="filters-heading-close-line"></span>
+    </button>
+  </div>
 </template>
 
 <script setup>
-defineEmits(['close']);
+  defineEmits(['close'])
 </script>
 
 <style lang="scss">
-.filters-heading {
+  .filters-heading {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 32px;
 
     &-close {
-        position: relative;
-        height: 16px;
-        background-color: transparent;
+      position: relative;
+      height: 16px;
+      background-color: transparent;
 
-        &-line {
-            @extend %transition;
-            display: block;
-            transform: rotate(45deg);
-            width: 20px;
-            height: 2px;
-            background-color: #000;
+      &-line {
+        @extend %transition;
 
-            &::after {
-                content: '';
-                position: absolute;
-                display: block;
-                transform: rotate(90deg);
-                width: 20px;
-                height: 2px;
-                background-color: #000;
-            }
+        display: block;
+        width: 20px;
+        height: 2px;
+        background-color: #000;
+        transform: rotate(45deg);
+
+        &::after {
+          position: absolute;
+          display: block;
+          width: 20px;
+          height: 2px;
+          content: '';
+          background-color: #000;
+          transform: rotate(90deg);
         }
+      }
     }
-}
+  }
 </style>
