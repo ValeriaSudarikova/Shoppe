@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-  import { useHeaderMobile } from '@/stores/modileVersion'
+  import { useHeaderMobile } from '@/stores/mobileVersion'
   import NavListPagesItems from './NavListPagesItems.vue'
   import { toRefs } from 'vue'
 

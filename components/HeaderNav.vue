@@ -14,7 +14,7 @@
 </template>
 
 <script setup>
-  import { useHeaderMobile } from '@/stores/modileVersion'
+  import { useHeaderMobile } from '@/stores/mobileVersion'
   import { toRefs, ref } from 'vue'
 
   const { isMobile } = toRefs(useHeaderMobile())

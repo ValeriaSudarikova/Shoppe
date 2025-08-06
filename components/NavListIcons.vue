@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-  import { useHeaderMobile } from '@/stores/modileVersion'
+  import { useHeaderMobile } from '@/stores/mobileVersion'
   import { toRefs } from 'vue'
   import SearchIcon from '@/assets/images/icons/search.svg'
   import CartIcon from '@/assets/images/icons/cart.svg'

@@ -10,7 +10,7 @@
 <script setup>
   import { onMounted, toRefs, computed } from 'vue'
   import { useShopList } from '@/composables/useShopList'
-  import { useHeaderMobile } from '@/stores/modileVersion'
+  import { useHeaderMobile } from '@/stores/mobileVersion'
 
   const { fetchShopList, loading, error, shopListMini } = useShopList()
   const { isMobile } = toRefs(useHeaderMobile())

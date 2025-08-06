@@ -19,7 +19,7 @@
 
 <script setup lang="ts">
   import { useFilters } from '@/composables/useFilters'
-  import { useHeaderMobile } from '@/stores/modileVersion'
+  import { useHeaderMobile } from '@/stores/mobileVersion'
   import { toRefs, ref } from 'vue'
 
   const { isMobile } = toRefs(useHeaderMobile())

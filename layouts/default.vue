@@ -15,8 +15,7 @@
 <script setup lang="ts">
   import { toRefs, computed } from 'vue'
   import { useRoute } from 'vue-router'
-
-  import { useHeaderMobile } from '@/stores/modileVersion'
+  import { useHeaderMobile } from '@/stores/mobileVersion'
 
   const route = useRoute()
   const showLine = computed(() => route.meta.showHeaderHorizontalLine)

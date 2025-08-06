@@ -9,7 +9,7 @@
 
 <script setup lang="ts">
   import { useRouter } from 'vue-router'
-  import { useHeaderMobile } from '@/stores/modileVersion'
+  import { useHeaderMobile } from '@/stores/mobileVersion'
   import { toRefs } from 'vue'
 
   const router = useRouter()

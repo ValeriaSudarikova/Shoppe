@@ -29,7 +29,7 @@
 <script setup>
   import { useValidateForm } from '@/composables/useValidateForm'
   import { useSavedEmails } from '@/composables/useSavedEmails'
-  import { useHeaderMobile } from '@/stores/modileVersion'
+  import { useHeaderMobile } from '@/stores/mobileVersion'
   import { ref, toRefs, computed, onMounted, watch } from 'vue'
 
   const { isMobile } = toRefs(useHeaderMobile())
