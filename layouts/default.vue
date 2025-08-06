@@ -15,6 +15,7 @@
 <script setup lang="ts">
   import { toRefs, computed } from 'vue'
   import { useRoute } from 'vue-router'
+
   import { useHeaderMobile } from '@/stores/modileVersion'
 
   const route = useRoute()
