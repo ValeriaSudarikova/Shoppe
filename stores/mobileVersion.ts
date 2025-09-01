@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-export const useHeaderMobile = defineStore('HeaderMedia', () => {
+export const useMobileVersion = defineStore('MobileVersion', () => {
   const isMobile = ref(false)
   const mobileSize = 550
 
@@ -20,5 +20,23 @@ export const useHeaderMobile = defineStore('HeaderMedia', () => {
     })
   }
 
-  return { isMobile }
+  const isWindow1000 = ref(false)
+  const size1000 = 1000
+
+  function findWindowSize1000() {
+    isWindow1000.value = window.innerWidth < size1000
+  }
+
+  if (process) {
+    onMounted(() => {
+      findWindowSize1000()
+      window.addEventListener('resize', findWindowSize1000)
+    })
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('resize', findWindowSize1000)
+    })
+  }
+
+  return { isMobile, isWindow1000 }
 })

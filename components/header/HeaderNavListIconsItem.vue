@@ -9,11 +9,11 @@
 
 <script setup lang="ts">
   import { useRouter } from 'vue-router'
-  import { useHeaderMobile } from '@/stores/mobileVersion'
+  import { useMobileVersion } from '@/stores/mobileVersion'
   import { toRefs } from 'vue'
 
   const router = useRouter()
-  const { isMobile } = toRefs(useHeaderMobile())
+  const { isMobile } = toRefs(useMobileVersion())
   const emit = defineEmits(['click-btn'])
 
   interface NavIcon {

@@ -1,16 +1,21 @@
 <template>
   <div class="shop-page">
-    <h1 v-if="isMobile" class="shop-page-heading">Shop</h1>
+    <h1 v-if="isWindow1000" class="shop-page-heading">Shop</h1>
     <h1 v-else class="shop-page-heading">Shop The Latest</h1>
-    <OpenFiltersButton v-if="isMobile" :form="form" @toggleForm="toggleForm" />
+    <OpenFiltersButton v-if="isWindow1000" :form="form" @toggleForm="toggleForm" />
     <div class="shop-page-body">
-      <ShopListFilters
-        v-model="prices"
-        :class="{ open: form }"
-        :filters="filters"
-        @click-btn="closeForm()"
-        @update:filters="updateFilters"
-      />
+      <transition name="fade">
+        <ShopListFilters
+          v-if="form || !isWindow1000"
+          v-model="prices"
+          :form="form"
+          :filters="filters"
+          :initialMinPrice="initialMinPrice"
+          :initialMaxPrice="initialMaxPrice"
+          @click-btn="closeForm()"
+          @update:filters="updateFilters"
+        />
+      </transition>
       <ShopPageList v-if="filteredProducts.length > 0" :products="filteredProducts" />
       <ShopPageListError v-else />
     </div>
@@ -18,12 +23,23 @@
 </template>
 
 <script setup lang="ts">
+  import OpenFiltersButton from '@/components/filters/OpenFiltersButton.vue'
+  import ShopListFilters from '@/components/filters/ShopListFilters.vue'
+  import ShopPageList from '@/components/shop-list/ShopPageList.vue'
+  import ShopPageListError from '@/components/shop-list/ShopPageListError.vue'
   import { useFilters } from '@/composables/useFilters'
-  import { useHeaderMobile } from '@/stores/mobileVersion'
-  import { toRefs, ref } from 'vue'
+  import { useShopList } from '@/composables/useShopList'
+  import { useMobileVersion } from '@/stores/mobileVersion'
+  import debounce from 'lodash/debounce'
+  import { toRefs, ref, onMounted } from 'vue'
+  import { useRoute } from 'vue-router'
 
-  const { isMobile } = toRefs(useHeaderMobile())
-  const { filters, prices, filteredProducts } = useFilters()
+  const route = useRoute()
+
+  const { isWindow1000 } = toRefs(useMobileVersion())
+  const shopList = useShopList()
+  const { filters, prices, filteredProducts, initializeFilters, initialMinPrice, initialMaxPrice } =
+    useFilters(shopList.shopListGlobal, shopList.fetchShopList)
 
   const form = ref(false)
 
@@ -35,9 +51,20 @@
     form.value = false
   }
 
-  function updateFilters(newFilters: object) {
+  const debouncedUpdateFilters = debounce((newFilters: object) => {
     Object.assign(filters, newFilters)
+  }, 500)
+
+  function updateFilters(newFilters: object) {
+    debouncedUpdateFilters(newFilters)
   }
+
+  onMounted(async () => {
+    const initialCategory =
+      typeof route.query.category === 'string' ? route.query.category : undefined
+    await shopList.fetchShopList(initialCategory)
+    initializeFilters()
+  })
 </script>
 
 <style lang="scss">
@@ -70,9 +97,14 @@
     }
   }
 
-  .open {
-    @extend %transition;
+  .fade-enter-active,
+  .fade-leave-active {
+    transition: all 0.3s ease;
+  }
 
-    transform: translateX(0%);
+  .fade-enter-from,
+  .fade-leave-to {
+    opacity: 0;
+    transform: translateX(-102%);
   }
 </style>

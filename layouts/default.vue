@@ -13,11 +13,12 @@
 </template>
 
 <script setup lang="ts">
+  import HorizontalLine from '@/components/base/HorizontalLine.vue'
   import { toRefs, computed } from 'vue'
   import { useRoute } from 'vue-router'
-  import { useHeaderMobile } from '@/stores/mobileVersion'
+  import { useMobileVersion } from '@/stores/mobileVersion'
 
   const route = useRoute()
   const showLine = computed(() => route.meta.showHeaderHorizontalLine)
-  const { isMobile } = toRefs(useHeaderMobile())
+  const { isMobile } = toRefs(useMobileVersion())
 </script>

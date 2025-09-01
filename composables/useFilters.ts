@@ -1,65 +1,70 @@
 import debounce from 'lodash/debounce'
-import { ref, onMounted, reactive, watch, computed } from 'vue'
+import { ref, reactive, watch, computed, type Ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { useShopList } from '@/composables/useShopList'
+import { type ShopItem } from '@/composables/useShopList'
 
-export const useFilters = () => {
-  const { shopListGlobal, fetchShopList } = useShopList()
-
+export const useFilters = (
+  shopList: Ref<ShopItem[]>,
+  fetchShopList?: (category?: string) => Promise<void>,
+) => {
   const route = useRoute()
   const router = useRouter()
 
   const initialMinPrice = ref(0)
   const initialMaxPrice = ref(1000)
-  const prices = ref([0, 1000])
-  const minPrice = ref(0)
-  const maxPrice = ref(1000)
+  const prices = ref<[number, number]>([0, 1000])
+
   const isFirstUrl = ref(false)
 
-  onMounted(async () => {
-    try {
-      await fetchShopList()
+  const filters = reactive({
+    search: route.query.search?.toString() || '',
+    category: route.query.category?.toString() || '',
+    sort: route.query.sort?.toString() || '',
+    minPrice: initialMinPrice.value,
+    maxPrice: initialMaxPrice.value,
+    onSale: route.query.onSale === 'true',
+    inStock: route.query.inStock === 'true',
+  })
 
-      if (shopListGlobal.value.length > 0) {
-        const allPrices = shopListGlobal.value.map((item) => item.price)
-        initialMinPrice.value = Math.min(...allPrices)
-        initialMaxPrice.value = Math.max(...allPrices)
-        minPrice.value = initialMinPrice.value
-        maxPrice.value = initialMaxPrice.value
+  const updatePriceRange = () => {
+    if (!shopList.value.length) return
 
-        prices.value = [initialMinPrice.value, initialMaxPrice.value]
-      }
+    const allPrices = shopList.value.map((item) => item.price)
+    const newMinPrice = Math.min(...allPrices)
+    const newMaxPrice = Math.max(...allPrices)
+
+    initialMinPrice.value = newMinPrice
+    initialMaxPrice.value = newMaxPrice
+
+    if (!route.query.minPrice && !route.query.maxPrice) {
+      prices.value = [newMinPrice, newMaxPrice]
+      filters.minPrice = newMinPrice
+      filters.maxPrice = newMaxPrice
+    } else {
       if (route.query.minPrice) {
-        prices.value[0] = Number(route.query.minPrice)
-        minPrice.value = Number(route.query.minPrice)
+        const minPriceFromURl = Math.max(Number(route.query.minPrice), newMinPrice)
+        prices.value[0] = minPriceFromURl
+        filters.minPrice = minPriceFromURl
       }
       if (route.query.maxPrice) {
-        prices.value[1] = Number(route.query.maxPrice)
-        maxPrice.value = Number(route.query.maxPrice)
+        const maxPriceFromURL = Math.min(Number(route.query.maxPrice), newMaxPrice)
+        prices.value[1] = maxPriceFromURL
+        filters.maxPrice = maxPriceFromURL
       }
-      if (route.query.search) filters.search = route.query.search as string
-      if (route.query.category) filters.category = route.query.category as string
-      if (route.query.sort) filters.sort = route.query.sort as string
-      if (route.query.onSale) filters.onSale = route.query.onSale === 'true'
-      if (route.query.inStock) filters.inStock = route.query.inStock === 'true'
-      setTimeout(() => (isFirstUrl.value = true), 100)
-    } catch (e) {
-      console.log('Ошибка:', e)
     }
-  })
+  }
 
-  const filters = reactive({
-    search: '',
-    category: '',
-    sort: '',
-    minPrice: minPrice,
-    maxPrice: maxPrice,
-    onSale: false,
-    inStock: false,
-  })
+  const initializeFilters = () => {
+    if (!shopList.value.length) return
+
+    updatePriceRange()
+    setTimeout(() => (isFirstUrl.value = true), 100)
+  }
 
   const updateUrl = debounce(() => {
-    router.push({
+    if (!isFirstUrl.value) return
+
+    router.replace({
       query: {
         search: filters.search || undefined,
         category: filters.category || undefined,
@@ -70,62 +75,70 @@ export const useFilters = () => {
         inStock: filters.inStock ? 'true' : undefined,
       },
     })
-  }, 300)
+  }, 500)
 
   watch(
-    prices,
-    (newPrice) => {
-      filters.minPrice = newPrice[0]
-      filters.maxPrice = newPrice[1]
+    shopList,
+    () => {
+      updatePriceRange()
     },
     { deep: true },
   )
 
   watch(
-    () => ({ ...filters }),
-    () => {
-      if (!isFirstUrl.value) return
+    () => filters.category,
+    async (newCategory, oldCategory) => {
+      if (newCategory !== oldCategory && fetchShopList) {
+        try {
+          await fetchShopList(newCategory)
+        } catch (error) {
+          console.error('Error fetching shop list:', error)
+        }
+      }
       updateUrl()
     },
+  )
+
+  watch(
+    () => ({
+      search: filters.search,
+      sort: filters.sort,
+      minPrice: filters.minPrice,
+      maxPrice: filters.maxPrice,
+      onSale: filters.onSale,
+      inStock: filters.inStock,
+    }),
+    updateUrl,
     { deep: true },
   )
 
   const filteredProducts = computed(() => {
-    if (!shopListGlobal.value) return []
-    let products = shopListGlobal.value
+    if (!shopList.value) return []
 
-    products = products.filter((p) => p.price >= filters.minPrice && p.price <= filters.maxPrice)
-
-    if (filters.onSale) {
-      products = products.filter((p) => p.sale)
-    }
-    if (filters.inStock) {
-      products = products.filter((p) => p.stock)
-    }
-    if (filters.category) {
-      products = products.filter((p) => p.category === filters.category)
-    }
-    if (filters.search) {
-      const searchText = filters.search.toLowerCase()
-      products = products.filter((p) => p.title.toLowerCase().includes(searchText))
-    }
-
-    switch (filters.sort) {
-      case 'Price: Low to High':
-        products.sort((a, b) => a.price - b.price)
-        break
-      case 'Price: High to Low':
-        products.sort((a, b) => b.price - a.price)
-        break
-      case 'Name: A → Z':
-        products.sort((a, b) => a.title.localeCompare(b.title))
-        break
-      case 'Name: Z → A':
-        products.sort((a, b) => b.title.localeCompare(a.title))
-        break
-    }
-
-    return products
+    return shopList.value
+      .filter((p) => p.price >= filters.minPrice && p.price <= filters.maxPrice)
+      .filter((p) => !filters.onSale || p.sale)
+      .filter((p) => !filters.inStock || p.stock)
+      .filter((p) => !filters.category || p.category === filters.category)
+      .filter(
+        (p) =>
+          !filters.search ||
+          p.title.toLocaleLowerCase().includes(filters.search.toLocaleLowerCase()),
+      )
+      .sort((a, b) => {
+        switch (filters.sort) {
+          case 'Price: Low to High':
+            return a.price - b.price
+          case 'Price: High to Low':
+            return b.price - a.price
+          case 'Name: A → Z':
+            return a.title.localeCompare(b.title)
+          case 'Name: Z → A':
+            return b.title.localeCompare(a.title)
+          default:
+            return 0
+        }
+      })
   })
 
   return {
@@ -134,5 +147,6 @@ export const useFilters = () => {
     prices,
     initialMinPrice,
     initialMaxPrice,
+    initializeFilters,
   }
 }

@@ -8,6 +8,10 @@
   </div>
 </template>
 
+<script setup lang="ts">
+  import ShopList from '@/components/shop-list/ShopList.vue'
+</script>
+
 <style lang="scss">
   .shop {
     padding: 102px 0 220px;

@@ -72,8 +72,20 @@
   .p-select-clear-icon {
     --p-select-dropdown-width: 14%;
 
+    @media (max-width: $breakpoints-xl) {
+      --p-select-dropdown-width: 4%;
+    }
+
     @media (max-width: $breakpoints-l-m) {
-      --p-select-dropdown-width: 20%;
+      --p-select-dropdown-width: 6%;
+    }
+
+    @media (max-width: $breakpoints-s) {
+      --p-select-dropdown-width: 8%;
+    }
+
+    @media (max-width: $breakpoints-xs) {
+      --p-select-dropdown-width: 12%;
     }
   }
 </style>

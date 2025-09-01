@@ -8,6 +8,7 @@
 </template>
 
 <script setup lang="ts">
+  import BaseInput from '@/components/base/BaseInput.vue'
   const modelValue = defineModel<string>()
 </script>
 

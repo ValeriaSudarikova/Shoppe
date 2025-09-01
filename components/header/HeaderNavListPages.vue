@@ -1,16 +1,15 @@
 <template>
   <ul class="header-top-nav-pages">
-    <NavListPagesItems v-if="!isMobile" :items="navLinkPages" />
-    <NavListPagesItems v-else :items="navLinkPagesMedia" @click-btn="$emit('click-btn')" />
+    <HeaderNavListPagesItems v-if="!isMobile" :items="navLinkPages" />
+    <HeaderNavListPagesItems v-else :items="navLinkPagesMedia" @click-btn="$emit('click-btn')" />
   </ul>
 </template>
 
 <script setup>
-  import { useHeaderMobile } from '@/stores/mobileVersion'
-  import NavListPagesItems from './NavListPagesItems.vue'
+  import { useMobileVersion } from '@/stores/mobileVersion'
   import { toRefs } from 'vue'
 
-  const { isMobile } = toRefs(useHeaderMobile())
+  const { isMobile } = toRefs(useMobileVersion())
   defineEmits(['click-btn'])
 
   const navLinkPages = [

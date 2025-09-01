@@ -5,19 +5,19 @@
     </NuxtLink>
     <HeaderCartIconMedia v-if="isMobile" :nav="nav" @toggle-nav="toggleNav" />
     <nav class="header-top-nav" :class="{ open: nav }">
-      <NavListPages @click-btn="closeNav" />
+      <HeaderNavListPages @click-btn="closeNav" />
       <span class="header-top-nav-line"></span>
-      <NavListIcons @click-btn="closeNav" />
+      <HeaderNavListIcons @click-btn="closeNav" />
     </nav>
   </div>
   <HeaderSearchForm v-if="isMobile" />
 </template>
 
 <script setup>
-  import { useHeaderMobile } from '@/stores/mobileVersion'
+  import { useMobileVersion } from '@/stores/mobileVersion'
   import { toRefs, ref } from 'vue'
 
-  const { isMobile } = toRefs(useHeaderMobile())
+  const { isMobile } = toRefs(useMobileVersion())
   const nav = ref(false)
 
   function toggleNav() {

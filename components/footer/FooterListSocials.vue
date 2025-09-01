@@ -10,10 +10,10 @@
 </template>
 
 <script setup>
-  import { useHeaderMobile } from '@/stores/mobileVersion'
+  import { useMobileVersion } from '@/stores/mobileVersion'
   import { toRefs } from 'vue'
 
-  const { isMobile } = toRefs(useHeaderMobile())
+  const { isMobile } = toRefs(useMobileVersion())
 </script>
 
 <style lang="scss">

@@ -18,10 +18,15 @@
 
 <style lang="scss">
   .shop-page-filters {
-    @include t-small(#a18a68);
+    @include h3(#a18a68);
 
+    display: flex;
     margin-bottom: 16px;
     background-color: transparent;
+
+    @media (max-width: $breakpoints-s) {
+      @include t-small(#a18a68);
+    }
 
     &-img {
       margin-right: 8px;

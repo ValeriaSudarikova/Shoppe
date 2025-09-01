@@ -21,6 +21,7 @@
 </template>
 
 <script setup lang="ts">
+  import LoadingError from '@/components/base/LoadingError.vue'
   import { usePicturesSlider } from '@/composables/useHeaderSlider'
   import { onMounted, onUnmounted, watch, ref, nextTick } from 'vue'
   import EmblaCarousel from 'embla-carousel'

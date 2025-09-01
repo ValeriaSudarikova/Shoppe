@@ -2,28 +2,26 @@
   <label class="filters-range">
     <Slider
       v-model="model"
-      :min="initialMinPrice"
-      :max="initialMaxPrice"
+      :min="minPrice"
+      :max="maxPrice"
       :step="step"
       range
       class="filter-range-input"
     />
     <div class="filters-range-content">
-      <p class="filters-range-content-price">{{ veiwPrices }}</p>
+      <p class="filters-range-content-price">{{ viewPrices }}</p>
       <p class="filters-range-content-text">Filter</p>
     </div>
   </label>
 </template>
 
 <script setup lang="ts">
-  import { useFilters } from '@/composables/useFilters'
-
   defineProps<{
     step: number
-    veiwPrices: string
+    viewPrices: string
+    minPrice: number
+    maxPrice: number
   }>()
-
-  const { initialMinPrice, initialMaxPrice } = useFilters()
 
   const model = defineModel<number[]>({
     required: true,

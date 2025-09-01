@@ -8,12 +8,13 @@
 </template>
 
 <script setup>
+  import LoadingError from '@/components/base/LoadingError.vue'
   import { onMounted, toRefs, computed } from 'vue'
   import { useShopList } from '@/composables/useShopList'
-  import { useHeaderMobile } from '@/stores/mobileVersion'
+  import { useMobileVersion } from '@/stores/mobileVersion'
 
   const { fetchShopList, loading, error, shopListMini } = useShopList()
-  const { isMobile } = toRefs(useHeaderMobile())
+  const { isMobile } = toRefs(useMobileVersion())
 
   onMounted(() => {
     fetchShopList()

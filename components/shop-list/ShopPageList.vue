@@ -14,14 +14,15 @@
 </template>
 
 <script setup lang="ts">
+  import LoadingError from '@/components/base/LoadingError.vue'
   import { useShopList, type ShopItem } from '@/composables/useShopList'
-  import { watch, ref, computed, onMounted } from 'vue'
+  import { watch, ref, computed } from 'vue'
 
   const props = defineProps<{
     products: ShopItem[]
   }>()
 
-  const { fetchShopList, loading, error } = useShopList()
+  const { loading, error } = useShopList()
 
   watch(
     () => props.products,
@@ -46,10 +47,6 @@
   const goToPage = (page: number) => {
     currentPage.value = page
   }
-
-  onMounted(() => {
-    fetchShopList()
-  })
 </script>
 
 <style lang="scss">
@@ -62,10 +59,6 @@
     --img-height: 300px;
     --btn-hover-width: 300px;
     --btn-hover-height: 300px;
-
-    @media (max-width: $breakpoints-xl) {
-      grid-template: repeat(3, 1fr) / repeat(2, minmax(auto, 1fr));
-    }
 
     @media (max-width: $breakpoints-l-m) {
       grid-template: repeat(2, 1fr) / repeat(2, minmax(auto, 1fr));

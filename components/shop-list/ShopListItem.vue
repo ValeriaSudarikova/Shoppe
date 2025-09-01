@@ -1,6 +1,11 @@
 <template>
   <li class="shop-list-item">
-    <img :src="item.image" :alt="item.title" class="shop-list-item-img" />
+    <SmartImage
+      :src="item.image"
+      :alt="item.title"
+      class="shop-list-item-img"
+      :fallback="Placeholder"
+    />
     <NuxtLink to="/" class="shop-list-item-title">{{ item.title }}</NuxtLink>
     <h4 class="shop-list-item-price">$ {{ item.price }}</h4>
     <span v-if="item.sale" class="badge">{{ saleDiscount(item) }}</span>
@@ -11,7 +16,10 @@
 </template>
 
 <script setup lang="ts">
+  import NotificationAddCart from '@/components/shop-list/NotificationAddCart.vue'
   import { useShopList, type ShopItem } from '@/composables/useShopList'
+  import SmartImage from '@/components/shop-list/SmartImage.vue'
+  import Placeholder from '@/assets/images/image-holder.png'
 
   defineProps<{
     item: ShopItem

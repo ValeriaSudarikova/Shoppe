@@ -27,12 +27,15 @@
 </template>
 
 <script setup>
+  import BaseInput from '@/components/base/BaseInput.vue'
+  import BaseCheckbox from '@/components/base/BaseCheckbox.vue'
+  import SuccessfullNotification from '@/components/base/SuccessfullNotification.vue'
   import { useValidateForm } from '@/composables/useValidateForm'
   import { useSavedEmails } from '@/composables/useSavedEmails'
-  import { useHeaderMobile } from '@/stores/mobileVersion'
+  import { useMobileVersion } from '@/stores/mobileVersion'
   import { ref, toRefs, computed, onMounted, watch } from 'vue'
 
-  const { isMobile } = toRefs(useHeaderMobile())
+  const { isMobile } = toRefs(useMobileVersion())
   const { showValidateError, errors } = useValidateForm()
   const showCheckbox = ref(false)
   const email = ref('')

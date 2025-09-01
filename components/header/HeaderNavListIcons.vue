@@ -1,19 +1,19 @@
 <template>
   <ul class="header-top-nav-list">
-    <NavListIconsItem v-if="!isMobile" :icons="navLinkIcons" />
-    <NavListIconsItem v-else :icons="navLinkIconsMedia" @click-btn="$emit('click-btn')" />
+    <HeaderNavListIconsItem v-if="!isMobile" :icons="navLinkIcons" />
+    <HeaderNavListIconsItem v-else :icons="navLinkIconsMedia" @click-btn="$emit('click-btn')" />
   </ul>
 </template>
 
 <script setup>
-  import { useHeaderMobile } from '@/stores/mobileVersion'
+  import { useMobileVersion } from '@/stores/mobileVersion'
   import { toRefs } from 'vue'
   import SearchIcon from '@/assets/images/icons/search.svg'
   import CartIcon from '@/assets/images/icons/cart.svg'
   import AccountIcon from '@/assets/images/icons/account.svg'
   import LogoutIcon from '@/assets/images/icons/logout.svg'
 
-  const { isMobile } = toRefs(useHeaderMobile())
+  const { isMobile } = toRefs(useMobileVersion())
   defineEmits(['click-btn'])
 
   const navLinkIcons = [

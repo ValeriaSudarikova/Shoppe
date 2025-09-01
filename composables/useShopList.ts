@@ -14,15 +14,23 @@ export const useShopList = () => {
   const shopListGlobal = ref<ShopItem[]>([])
   const loading = ref(false)
   const error = ref<string | null>(null)
+  const currentCategory = ref<string>('')
 
   const shopListMini = computed(() => shopListGlobal.value.slice(0, 6))
 
-  const fetchShopList = async () => {
+  const fetchShopList = async (category?: string) => {
+    if (shopListGlobal.value.length && category === currentCategory.value) return
+
     loading.value = true
     error.value = null
+    currentCategory.value = category || ''
 
     try {
-      const response = await fetch('https://fakestoreapi.com/products')
+      let url = 'https://fakestoreapi.com/products'
+      if (category) {
+        url = `https://fakestoreapi.com/products/category/${encodeURIComponent(category)}`
+      }
+      const response = await fetch(url)
       const data = await response.json()
       shopListGlobal.value = data.map((product: ShopItem) => ({
         ...product,
@@ -54,5 +62,6 @@ export const useShopList = () => {
     error,
     addCart,
     notificationId,
+    currentCategory,
   }
 }
