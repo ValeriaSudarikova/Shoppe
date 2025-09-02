@@ -26,9 +26,10 @@ export const useShopList = () => {
     currentCategory.value = category || ''
 
     try {
-      let url = 'https://fakestoreapi.com/products'
+      const API_URL = import.meta.env.VITE_APP_URL
+      let url = `${API_URL}/products`
       if (category) {
-        url = `https://fakestoreapi.com/products/category/${encodeURIComponent(category)}`
+        url = `${API_URL}/products/category/${encodeURIComponent(category)}`
       }
       const response = await fetch(url)
       const data = await response.json()

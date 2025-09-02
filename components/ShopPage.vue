@@ -1,12 +1,12 @@
 <template>
   <div class="shop-page">
-    <h1 v-if="isWindow1000" class="shop-page-heading">Shop</h1>
+    <h1 v-if="isBreakpointXL" class="shop-page-heading">Shop</h1>
     <h1 v-else class="shop-page-heading">Shop The Latest</h1>
-    <OpenFiltersButton v-if="isWindow1000" :form="form" @toggleForm="toggleForm" />
+    <OpenFiltersButton v-if="isBreakpointXL" :form="form" @toggleForm="toggleForm" />
     <div class="shop-page-body">
       <transition name="fade">
         <ShopListFilters
-          v-if="form || !isWindow1000"
+          v-if="form || !isBreakpointXL"
           v-model="prices"
           :form="form"
           :filters="filters"
@@ -36,7 +36,7 @@
 
   const route = useRoute()
 
-  const { isWindow1000 } = toRefs(useMobileVersion())
+  const { isBreakpointXL } = toRefs(useMobileVersion())
   const shopList = useShopList()
   const { filters, prices, filteredProducts, initializeFilters, initialMinPrice, initialMaxPrice } =
     useFilters(shopList.shopListGlobal, shopList.fetchShopList)

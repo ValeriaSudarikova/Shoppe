@@ -1,6 +1,6 @@
 <template>
   <li class="shop-list-item">
-    <SmartImage
+    <ImageWithFallback
       :src="item.image"
       :alt="item.title"
       class="shop-list-item-img"
@@ -18,7 +18,7 @@
 <script setup lang="ts">
   import NotificationAddCart from '@/components/shop-list/NotificationAddCart.vue'
   import { useShopList, type ShopItem } from '@/composables/useShopList'
-  import SmartImage from '@/components/shop-list/SmartImage.vue'
+  import ImageWithFallback from '@/components/shop-list/ImageWithFallback.vue'
   import Placeholder from '@/assets/images/image-holder.png'
 
   defineProps<{

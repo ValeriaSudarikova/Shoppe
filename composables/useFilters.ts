@@ -26,6 +26,26 @@ export const useFilters = (
     inStock: route.query.inStock === 'true',
   })
 
+  const deleteInvalidPrices = () => {
+    const query = { ...route.query }
+    let checkValid = false
+
+    if (query.minPrice && isNaN(Number(query.minPrice))) {
+      delete query.minPrice
+      checkValid = true
+    }
+    if (query.maxPrice && isNaN(Number(query.maxPrice))) {
+      delete query.maxPrice
+      checkValid = true
+    }
+    if (checkValid) {
+      router.replace({ query })
+      return true
+    }
+
+    return false
+  }
+
   const updatePriceRange = () => {
     if (!shopList.value.length) return
 
@@ -36,28 +56,30 @@ export const useFilters = (
     initialMinPrice.value = newMinPrice
     initialMaxPrice.value = newMaxPrice
 
-    if (!route.query.minPrice && !route.query.maxPrice) {
-      prices.value = [newMinPrice, newMaxPrice]
-      filters.minPrice = newMinPrice
-      filters.maxPrice = newMaxPrice
-    } else {
-      if (route.query.minPrice) {
-        const minPriceFromURl = Math.max(Number(route.query.minPrice), newMinPrice)
-        prices.value[0] = minPriceFromURl
-        filters.minPrice = minPriceFromURl
-      }
-      if (route.query.maxPrice) {
-        const maxPriceFromURL = Math.min(Number(route.query.maxPrice), newMaxPrice)
-        prices.value[1] = maxPriceFromURL
-        filters.maxPrice = maxPriceFromURL
-      }
-    }
+    const minPriceFromURl =
+      route.query.minPrice && !isNaN(Number(route.query.minPrice))
+        ? Math.max(Number(route.query.minPrice), newMinPrice)
+        : newMinPrice
+
+    const maxPriceFromURL =
+      route.query.maxPrice && !isNaN(Number(route.query.maxPrice))
+        ? Math.min(Number(route.query.maxPrice), newMaxPrice)
+        : newMaxPrice
+
+    prices.value = [minPriceFromURl, maxPriceFromURL]
+    filters.minPrice = minPriceFromURl
+    filters.maxPrice = maxPriceFromURL
   }
 
   const initializeFilters = () => {
     if (!shopList.value.length) return
 
-    updatePriceRange()
+    if (deleteInvalidPrices()) {
+      setTimeout(updatePriceRange, 100)
+    } else {
+      updatePriceRange()
+    }
+
     setTimeout(() => (isFirstUrl.value = true), 100)
   }
 

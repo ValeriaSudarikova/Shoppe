@@ -1,6 +1,6 @@
 <template>
-  <form class="filters" :class="{ open: form }">
-    <FiltersHeadingMedia v-if="isWindow1000" @close="$emit('click-btn')" />
+  <form class="filters" :class="{ form__mobile: form }">
+    <FiltersHeadingMedia v-if="isBreakpointXL" @close="$emit('click-btn')" />
     <FiltersInput v-model="isSearch" />
     <BaseSelect
       v-model="selectedCategory"
@@ -33,7 +33,7 @@
   import { toRefs, ref, computed } from 'vue'
   import type { Ref } from 'vue'
 
-  const { isWindow1000 } = toRefs(useMobileVersion())
+  const { isBreakpointXL } = toRefs(useMobileVersion())
 
   interface Filters {
     search: string
@@ -152,7 +152,7 @@
     }
   }
 
-  .open {
+  .form__mobile {
     @media (max-width: $breakpoints-xl) {
       transform: translateX(0%);
     }

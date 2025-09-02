@@ -20,11 +20,11 @@ export const useMobileVersion = defineStore('MobileVersion', () => {
     })
   }
 
-  const isWindow1000 = ref(false)
+  const isBreakpointXL = ref(false)
   const size1000 = 1000
 
   function findWindowSize1000() {
-    isWindow1000.value = window.innerWidth < size1000
+    isBreakpointXL.value = window.innerWidth < size1000
   }
 
   if (process) {
@@ -38,5 +38,5 @@ export const useMobileVersion = defineStore('MobileVersion', () => {
     })
   }
 
-  return { isMobile, isWindow1000 }
+  return { isMobile, isBreakpointXL }
 })
