@@ -1,10 +1,13 @@
 <template>
-    <main>
-        <HeaderSlider />
-        <HomeShop />
-    </main>
+  <main>
+    <HeaderSlider />
+    <HomeShop />
+  </main>
 </template>
 
 <script setup lang="ts">
-definePageMeta({ showHeaderHorizontalLine: true })
+  import HeaderSlider from '@/components/header-slider/HeaderSlider.vue'
+  import { definePageMeta } from '#imports'
+
+  definePageMeta({ showHeaderHorizontalLine: true })
 </script>
