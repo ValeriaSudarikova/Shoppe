@@ -1,5 +1,5 @@
 <template>
-  <img :src="currentSrc" :alt="alt" :class="className" @error="checkError" />
+  <img :src="currentSrc" :alt="alt" :class="className" @error="onError" />
 </template>
 
 <script setup lang="ts">
@@ -27,7 +27,7 @@
     },
   )
 
-  const checkError = () => {
+  const onError = () => {
     currentSrc.value = props.fallback
   }
 </script>
