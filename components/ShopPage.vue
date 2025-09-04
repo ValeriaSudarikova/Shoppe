@@ -68,8 +68,6 @@
 </script>
 
 <style lang="scss">
-  @import '@/assets/scss/variables';
-
   .shop-page {
     padding: 96px 0 250px;
 
