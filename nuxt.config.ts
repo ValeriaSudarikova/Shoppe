@@ -10,6 +10,7 @@ export default defineNuxtConfig({
       include: ['Slider'],
     },
   },
+  
   app: {
     baseURL: process.env.NUXT_APP_BASE_URL || '/',
     head: {
