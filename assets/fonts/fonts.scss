@@ -4,8 +4,8 @@
   font-weight: 400;
   src:
     local('DM Sans'),
-    url('./DMSans_Regular.woff') format('woff'),
-    url('./DMSans_Regular.eot') format('eot');
+    url('~/assets/fonts/DMSans_Regular.woff') format('woff'),
+    url('~/assets/fonts/DMSans_Regular.eot') format('eot');
   font-display: swap;
 }
 
@@ -15,8 +15,8 @@
   font-weight: 500;
   src:
     local('DM Sans'),
-    url('./DMSans_Medium.woff') format('woff'),
-    url('./DMSans_Medium.eot') format('eot');
+    url('~/assets/fonts/DMSans_Medium.woff') format('woff'),
+    url('~/assets/fonts/DMSans_Medium.eot') format('eot');
   font-display: swap;
 }
 
@@ -26,7 +26,7 @@
   font-weight: 700;
   src:
     local('DM Sans'),
-    url('./DMSans_Bold.woff') format('woff'),
-    url('./DMSans_Bold.eot') format('eot');
+    url('~/assets/fonts/DMSans_Bold.woff') format('woff'),
+    url('~/assets/fonts/DMSans_Bold.eot') format('eot');
   font-display: swap;
 }
