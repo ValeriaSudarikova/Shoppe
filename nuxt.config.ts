@@ -11,6 +11,17 @@ export default defineNuxtConfig({
     },
   },
   css: ['@/assets/scss/style.scss'],
+  
+  // Конфигурация приложения
+  app: {
+    head: {
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: `${process.env.NUXT_APP_BASE_URL || '/'}favicon.ico` }
+      ]
+    }
+  },
+
+  // Vite конфигурация
   vite: {
     css: {
       preprocessorOptions: {
