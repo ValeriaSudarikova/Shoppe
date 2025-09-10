@@ -31,7 +31,9 @@ jobs:
         run: npm ci
 
       - name: Static HTML export with Nuxt
-        run: npm run generate        
+        run: npm run generate
+        env:
+          NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
 
       - name: Create .nojekyll file
         run: touch .output/public/.nojekyll
