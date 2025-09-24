@@ -13,7 +13,7 @@
 
 <style lang="scss">
   .footer {
-    padding: 40px 0 124px;
+    padding: 40px 0 90px;
 
     @media (max-width: $breakpoints-s) {
       padding: 0 0 26px;
