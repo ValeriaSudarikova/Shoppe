@@ -2,8 +2,12 @@
 @import '../fonts/fonts.scss';
 
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 100%;
   max-width: 1310px;
+  min-height: 100vh;
   padding: 0 30px;
   margin: 0 auto;
 
