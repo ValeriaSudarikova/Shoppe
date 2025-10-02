@@ -9,13 +9,16 @@
         />
         <span class="notification-message-text">The item added to your Shopping bag.</span>
       </div>
-      <NuxtLink to="/shop" class="notification-link">VIEW CART</NuxtLink>
+      <button class="notification-link" @click="toggleSidebar()">VIEW CART</button>
     </div>
   </transition>
 </template>
 
 <script setup lang="ts">
+  import { useCart } from '@/stores/cart'
   import { ref, onMounted, onUnmounted } from 'vue'
+
+  const { toggleSidebar } = useCart()
 
   interface Props {
     item: {

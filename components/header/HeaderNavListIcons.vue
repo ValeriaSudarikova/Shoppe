@@ -1,12 +1,17 @@
 <template>
   <ul class="header-top-nav-list">
-    <HeaderNavListIconsItem v-if="!isMobile" :icons="navLinkIcons" />
+    <HeaderNavListIconsItem
+      v-if="!isMobile"
+      :icons="navLinkIcons"
+      @click-btn="$emit('click-btn')"
+    />
     <HeaderNavListIconsItem v-else :icons="navLinkIconsMedia" @click-btn="$emit('click-btn')" />
   </ul>
 </template>
 
 <script setup>
   import { useMobileVersion } from '@/stores/mobileVersion'
+  import { useCart } from '@/stores/cart'
   import { toRefs } from 'vue'
   import SearchIcon from '@/assets/images/icons/search.svg'
   import CartIcon from '@/assets/images/icons/cart.svg'
@@ -14,11 +19,13 @@
   import LogoutIcon from '@/assets/images/icons/logout.svg'
 
   const { isMobile } = toRefs(useMobileVersion())
+  const { toggleSidebar } = useCart()
+
   defineEmits(['click-btn'])
 
   const navLinkIcons = [
     { to: '/search', src: SearchIcon, alt: 'search' },
-    { to: '/cart', src: CartIcon, alt: 'cart' },
+    { to: '', src: CartIcon, alt: 'cart', action: toggleSidebar },
     { to: '/account', src: AccountIcon, alt: 'account' },
   ]
 

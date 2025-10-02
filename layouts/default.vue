@@ -10,6 +10,7 @@
       <FooterNav />
     </footer>
   </div>
+  <CartSidebar />
 </template>
 
 <script setup lang="ts">
