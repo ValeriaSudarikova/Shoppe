@@ -10,7 +10,7 @@
     <h4 class="shop-list-item-price">$ {{ item.price }}</h4>
     <span v-if="item.sale" class="badge">{{ saleDiscount(item) }}</span>
     <span v-if="!item.stock" class="badge">Sold out</span>
-    <ShopListButtons @add-cart="addCart(item.id)" />
+    <ShopListButtons @add-cart="addCartItem" />
   </li>
   <NotificationAddCart :item="item" :notification-id="notificationId" />
 </template>
@@ -20,16 +20,23 @@
   import { useShopList, type ShopItem } from '@/composables/useShopList'
   import ImageWithFallback from '@/components/shop-list/ImageWithFallback.vue'
   import Placeholder from '@/assets/images/image-holder.png'
+  import { useCart } from '#imports'
 
-  defineProps<{
+  const props = defineProps<{
     item: ShopItem
   }>()
 
+  const { addItem } = useCart()
   const { addCart, notificationId } = useShopList()
 
   const saleDiscount = (item: ShopItem) => {
     const discount = 5 + (item.id.toString().charCodeAt(0) % 50)
     return `- ${discount}%`
+  }
+
+  const addCartItem = async () => {
+    await addItem(props.item)
+    addCart(props.item.id)
   }
 </script>
 

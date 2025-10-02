@@ -1,6 +1,6 @@
 <template>
   <div class="header-icons">
-    <button class="header-icons-cart" @click="goToCart">
+    <button class="header-icons-cart" @click="toggleSidebar">
       <img src="@/assets/images/icons/cart.svg" alt="cart" />
     </button>
     <button class="burger" :class="{ close: nav }" @click="toggleNavHeader">
@@ -10,17 +10,13 @@
 </template>
 
 <script setup>
-  import { useRouter } from 'vue-router'
+  import { useCart } from '@/stores/cart'
 
-  const router = useRouter()
+  const { toggleSidebar } = useCart()
   const emit = defineEmits(['toggle-nav'])
   defineProps({
     nav: Boolean,
   })
-
-  function goToCart() {
-    router.push('/cart')
-  }
 
   function toggleNavHeader() {
     emit('toggle-nav')
