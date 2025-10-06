@@ -1,8 +1,8 @@
 <template>
   <div class="count">
-    <button class="count-minus" @click="decreaseCount">-</button>
+    <button class="count-minus" @click="decreaseCount(props.item)">-</button>
     <p class="count-number">{{ item.count }}</p>
-    <button class="count-plus" @click="increaseCount">+</button>
+    <button class="count-plus" @click="increaseCount(props.item)">+</button>
   </div>
 </template>
 
@@ -14,19 +14,8 @@
     item: CartItem
   }>()
 
-  const { updateQuantity, removeItem } = useCart()
-
-  const decreaseCount = () => {
-    if (props.item.count > 1) {
-      updateQuantity(props.item.product.id, props.item.count - 1)
-    } else {
-      removeItem(props.item.product.id)
-    }
-  }
-
-  const increaseCount = () => {
-    updateQuantity(props.item.product.id, props.item.count + 1)
-  }
+  const cartStore = useCart()
+  const { increaseCount, decreaseCount } = cartStore
 </script>
 
 <style lang="scss">

@@ -1,6 +1,6 @@
 <template>
   <div class="header-icons">
-    <button class="header-icons-cart" @click="toggleSidebar">
+    <button class="header-icons-cart" @click="toggleCartSidebar">
       <img src="@/assets/images/icons/cart.svg" alt="cart" />
     </button>
     <button class="burger" :class="{ close: nav }" @click="toggleNavHeader">
@@ -12,7 +12,8 @@
 <script setup>
   import { useCart } from '@/stores/cart'
 
-  const { toggleSidebar } = useCart()
+  const cartStore = useCart()
+  const { toggleSidebar: toggleCartSidebar } = cartStore
   const emit = defineEmits(['toggle-nav'])
   defineProps({
     nav: Boolean,

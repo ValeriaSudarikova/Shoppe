@@ -1,20 +1,19 @@
 <template>
-  <li v-for="item in cartItems" :key="item.product.id" class="sidebar-list-item">
+  <li class="sidebar-list-item">
     <img class="sidebar-list-item-img" :src="item.product.image" :alt="item.product.title" />
     <div class="sidebar-list-item-content">
-      <CartSidebarListInfo :item="item" :closeSidebar="closeSidebar" />
+      <CartSidebarListInfo :item="item" />
       <CartSidebarCount :item="item" />
     </div>
   </li>
 </template>
 
 <script setup lang="ts">
-  import { useCart } from '#imports'
-  defineProps<{
-    closeSidebar: () => void
-  }>()
+  import { type CartItem } from '@/stores/cart'
 
-  const { cartItems } = useCart()
+  defineProps<{
+    item: CartItem
+  }>()
 </script>
 
 <style lang="scss">
@@ -33,6 +32,7 @@
 
     &-img {
       width: 136px;
+      height: 136px;
       object-fit: contain;
       border-radius: 4px;
     }

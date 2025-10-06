@@ -19,13 +19,14 @@
   import LogoutIcon from '@/assets/images/icons/logout.svg'
 
   const { isMobile } = toRefs(useMobileVersion())
-  const { toggleSidebar } = useCart()
+  const cartStore = useCart()
+  const { toggleSidebar: toggleCartSidebar } = cartStore
 
   defineEmits(['click-btn'])
 
   const navLinkIcons = [
     { to: '/search', src: SearchIcon, alt: 'search' },
-    { to: '', src: CartIcon, alt: 'cart', action: toggleSidebar },
+    { to: '', src: CartIcon, alt: 'cart', action: toggleCartSidebar },
     { to: '/account', src: AccountIcon, alt: 'account' },
   ]
 

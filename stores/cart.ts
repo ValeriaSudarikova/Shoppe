@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 import type { ShopItem } from '#imports'
 
 export interface CartItem {
@@ -10,49 +10,44 @@ export interface CartItem {
 export const useCart = defineStore('PiniaCart', () => {
   const isSidebarOpen = ref(false)
   const isLoading = ref(true)
-  const isClient = typeof window !== 'undefined'
+  const isInitial = ref(false)
   const cartItems = ref<CartItem[]>([])
+  const formattedProductsForBackend = {
+    userId: 1,
+    date: new Date().toISOString().split('T')[0],
+    products: cartItems.value.map((item) => ({
+      productId: item.product.id,
+      quantity: item.count,
+    })),
+  }
 
   const saveToLocalStorage = () => {
-    if (isClient) {
-      localStorage.setItem('cart', JSON.stringify(cartItems.value))
-    }
+    localStorage.setItem('cart', JSON.stringify(cartItems.value))
   }
 
   const loadFromLocalStorage = () => {
-    if (isClient) {
-      try {
-        const saved = localStorage.getItem('cart')
-        if (saved) {
-          cartItems.value = JSON.parse(saved)
-        }
-      } catch (error) {
-        console.log('Error loading cart from localStorage', error)
-        cartItems.value = []
+    try {
+      const saved = localStorage.getItem('cart')
+      if (saved) {
+        cartItems.value = JSON.parse(saved)
       }
+    } catch (error) {
+      console.log('Error loading cart from localStorage', error)
+      cartItems.value = []
+    } finally {
+      isLoading.value = false
     }
-    isLoading.value = false
   }
 
-  if (isClient) {
-    onMounted(() => {
-      loadFromLocalStorage()
-    })
-  } else {
-    isLoading.value = false
-  }
+  onMounted(() => {
+    loadFromLocalStorage()
+    isInitial.value = true
+  })
 
   const sendCartToBackend = async () => {
     if (cartItems.value.length === 0) return
     try {
-      const cartData = {
-        userId: 1,
-        date: new Date().toISOString().split('T')[0],
-        products: cartItems.value.map((item) => ({
-          productId: item.product.id,
-          quantity: item.count,
-        })),
-      }
+      const cartData = formattedProductsForBackend
 
       const API_URL = import.meta.env.VITE_APP_URL
       let url = `${API_URL}/carts`
@@ -86,18 +81,30 @@ export const useCart = defineStore('PiniaCart', () => {
     }
   }
 
+  watch(
+    cartItems,
+    () => {
+      if (!isInitial.value) return
+      updateCart()
+    },
+    { deep: true },
+  )
+
   const toggleSidebar = () => {
     isSidebarOpen.value = !isSidebarOpen.value
   }
 
-  const totalItems = computed(() => {
-    return cartItems.value.reduce((total, item) => total + item.count, 0)
-  })
-
-  const totalPrices = computed(() => {
-    return cartItems.value.reduce((total, item) => {
+  const cartTotals = computed(() => {
+    const item = cartItems.value
+    const totalItems = item.reduce((total, item) => total + item.count, 0)
+    const totalPrices = item.reduce((total, item) => {
       return total + item.product.price * item.count
     }, 0)
+
+    return {
+      totalItems,
+      totalPrices,
+    }
   })
 
   const addItem = (product: ShopItem) => {
@@ -110,15 +117,12 @@ export const useCart = defineStore('PiniaCart', () => {
         count: 1,
       })
     }
-
-    updateCart()
   }
 
   const removeItem = (productId: number) => {
     const index = cartItems.value.findIndex((item) => item.product.id === productId)
     if (index !== -1) {
       cartItems.value.splice(index, 1)
-      updateCart()
     }
   }
 
@@ -130,19 +134,31 @@ export const useCart = defineStore('PiniaCart', () => {
     const item = cartItems.value.find((item) => item.product.id === productId)
     if (item) {
       item.count = count
-      updateCart()
     }
+  }
+
+  const decreaseCount = (item: CartItem) => {
+    if (item.count > 1) {
+      updateQuantity(item.product.id, item.count - 1)
+    } else {
+      removeItem(item.product.id)
+    }
+  }
+
+  const increaseCount = (item: CartItem) => {
+    updateQuantity(item.product.id, item.count + 1)
   }
 
   return {
     isSidebarOpen,
     toggleSidebar,
-    totalItems,
-    totalPrices,
+    cartTotals,
     addItem,
     removeItem,
     updateQuantity,
     cartItems,
     isLoading,
+    increaseCount,
+    decreaseCount,
   }
 })

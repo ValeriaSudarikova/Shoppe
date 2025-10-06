@@ -1,15 +1,19 @@
 <template>
   <div class="sidebar-main">
-    <button v-if="isMobile" class="sidebar-main-close-bth" @click="closeSidebar()">
+    <button v-if="isMobile" class="sidebar-main-close-bth" @click="toggleSidebar">
       <img src="@/assets/images/icons/arrow-cart.svg" alt="arrow" />
     </button>
     <h5 class="sidebar-main-heading">Shopping bag</h5>
-    <p class="sidebar-main-items-count">{{ cartStore.totalItems }} items</p>
+    <p class="sidebar-main-items-count">{{ cartTotals.totalItems }} items</p>
     <div class="sidebar-main-list">
       <div v-if="cartStore.isLoading" class="sidebar-main-list-loading">Loading cart...</div>
       <div v-else>
         <ul v-if="cartStore.cartItems.length > 0" class="sidebar-main-list-items">
-          <CartSidebarList :closeSidebar="closeSidebar" />
+          <CartSidebarItem
+            v-for="item in cartStore.cartItems"
+            :key="item.product.id"
+            :item="item"
+          />
         </ul>
         <p v-else class="sidebar-main-list-empty">Your cart is empty</p>
       </div>
@@ -18,16 +22,14 @@
 </template>
 
 <script setup lang="ts">
-  import { useMobileVersion } from '#imports'
-  import { storeToRefs } from '#imports'
-  import { useCart } from '#imports'
+  import { useMobileVersion } from '@/stores/mobileVersion'
+  import { storeToRefs } from 'pinia'
+  import { useCart } from '@/stores/cart'
   const { isMobile } = storeToRefs(useMobileVersion())
 
-  defineProps<{
-    closeSidebar: () => void
-  }>()
-
   const cartStore = useCart()
+  const { toggleSidebar } = cartStore
+  const { cartTotals } = storeToRefs(cartStore)
 </script>
 
 <style lang="scss">

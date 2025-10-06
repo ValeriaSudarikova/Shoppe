@@ -1,13 +1,14 @@
 <template>
-  <div v-if="isOpen" class="sidebar-overlay" @click="closeSidebar"></div>
   <transition name="fade">
-    <div v-if="isOpen" class="sidebar">
-      <div class="sidebar-content">
-        <CartSidebarMain :closeSidebar="closeSidebar" />
-      </div>
-      <HorizontalLine class="sidebar-line" />
-      <div class="sidebar-bottom">
-        <CartSidebarBottom :closeSidebar="closeSidebar" />
+    <div v-if="cartStore.isSidebarOpen" class="sidebar-overlay" @click="toggleSidebar">
+      <div class="sidebar" @click.stop>
+        <div class="sidebar-content">
+          <CartSidebarMain />
+        </div>
+        <HorizontalLine class="sidebar-line" />
+        <div class="sidebar-bottom">
+          <CartSidebarBottom />
+        </div>
       </div>
     </div>
   </transition>
@@ -16,12 +17,9 @@
 <script setup lang="ts">
   import HorizontalLine from '@/components/base/HorizontalLine.vue'
   import { useCart } from '@/stores/cart'
-  import { computed } from 'vue'
 
   const cartStore = useCart()
-
-  const isOpen = computed(() => cartStore.isSidebarOpen)
-  const closeSidebar = computed(() => cartStore.toggleSidebar)
+  const { toggleSidebar } = cartStore
 </script>
 
 <style lang="scss">
