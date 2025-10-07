@@ -1,5 +1,5 @@
 <template>
-  <transition name="fade">
+  <transition name="slide">
     <div v-if="isSidebarOpen" class="sidebar-overlay" @click="toggleSidebar">
       <div class="sidebar" @click.stop>
         <div class="sidebar-content">
@@ -32,17 +32,6 @@
     background-color: #3d3d3d69;
   }
 
-  .fade-enter-active,
-  .fade-leave-active {
-    transition: all 0.5s ease;
-  }
-
-  .fade-enter-from,
-  .fade-leave-to {
-    opacity: 0;
-    transform: translateX(100%);
-  }
-
   .sidebar {
     position: fixed;
     top: 0;
@@ -55,6 +44,7 @@
     padding: 72px 36px 28px;
     background-color: #fff;
     border: 1px solid #d8d8d8;
+    transform: translateX(0);
 
     @media (max-width: $breakpoints-s) {
       left: 0;
@@ -81,5 +71,27 @@
     &-bottom {
       flex-shrink: 0;
     }
+  }
+
+  .slide-enter-active,
+  .slide-leave-active {
+    transition: all 0.5s ease;
+  }
+
+  .slide-enter-active .sidebar,
+  .slide-leave-active .sidebar {
+    transition: all 0.5s ease;
+  }
+
+  .slide-enter-from .sidebar,
+  .slide-leave-to .sidebar {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  .slide-enter-to .sidebar,
+  .slide-leave-from .sidebar {
+    opacity: 1;
+    transform: translateX(0);
   }
 </style>

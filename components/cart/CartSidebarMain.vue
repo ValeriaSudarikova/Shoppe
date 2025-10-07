@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar-main">
-    <button v-if="isMobile" class="sidebar-main-close-bth" @click="toggleSidebar">
+    <button v-if="isMobile" class="sidebar-main-close-btn" @click="toggleSidebar">
       <img src="@/assets/images/icons/arrow-cart.svg" alt="arrow" />
     </button>
     <h5 class="sidebar-main-heading">Shopping bag</h5>
@@ -35,7 +35,7 @@
     flex-direction: column;
     height: 100%;
 
-    &-close-bth {
+    &-close-btn {
       position: absolute;
       top: 58px;
       left: 20px;
@@ -68,7 +68,16 @@
     &-list {
       flex: 1;
       min-height: 0;
+      padding-right: 20px;
+      margin-right: -20px;
       overflow-y: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+        width: 0;
+      }
 
       &-items {
         margin-bottom: 40px;
