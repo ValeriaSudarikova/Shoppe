@@ -1,8 +1,8 @@
 <template>
   <div class="count">
-    <button class="count-minus" @click="decreaseCount(props.item)">-</button>
+    <button class="count-minus" @click="decreaseCount(item)">-</button>
     <p class="count-number">{{ item.count }}</p>
-    <button class="count-plus" @click="increaseCount(props.item)">+</button>
+    <button class="count-plus" @click="increaseCount(item)">+</button>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
   import { defineProps } from 'vue'
   import { type CartItem, useCart } from '@/stores/cart'
 
-  const props = defineProps<{
+  defineProps<{
     item: CartItem
   }>()
 

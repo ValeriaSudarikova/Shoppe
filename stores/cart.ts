@@ -12,14 +12,6 @@ export const useCart = defineStore('PiniaCart', () => {
   const isLoading = ref(true)
   const isInitial = ref(false)
   const cartItems = ref<CartItem[]>([])
-  const formattedProductsForBackend = {
-    userId: 1,
-    date: new Date().toISOString().split('T')[0],
-    products: cartItems.value.map((item) => ({
-      productId: item.product.id,
-      quantity: item.count,
-    })),
-  }
 
   const saveToLocalStorage = () => {
     localStorage.setItem('cart', JSON.stringify(cartItems.value))
@@ -47,6 +39,15 @@ export const useCart = defineStore('PiniaCart', () => {
   const sendCartToBackend = async () => {
     if (cartItems.value.length === 0) return
     try {
+      const formattedProductsForBackend = {
+        userId: 1,
+        date: new Date().toISOString().split('T')[0],
+        products: cartItems.value.map((item) => ({
+          productId: item.product.id,
+          quantity: item.count,
+        })),
+      }
+
       const cartData = formattedProductsForBackend
 
       const API_URL = import.meta.env.VITE_APP_URL
@@ -95,16 +96,13 @@ export const useCart = defineStore('PiniaCart', () => {
   }
 
   const cartTotals = computed(() => {
-    const item = cartItems.value
-    const totalItems = item.reduce((total, item) => total + item.count, 0)
-    const totalPrices = item.reduce((total, item) => {
-      return total + item.product.price * item.count
-    }, 0)
-
-    return {
-      totalItems,
-      totalPrices,
-    }
+    return cartItems.value.reduce(
+      (total, item) => ({
+        length: total.length + item.count,
+        price: total.price + item.product.price * item.count,
+      }),
+      { length: 0, price: 0 },
+    )
   })
 
   const addItem = (product: ShopItem) => {

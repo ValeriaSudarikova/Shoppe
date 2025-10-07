@@ -1,7 +1,7 @@
 <template>
   <div class="general-info">
-    <p class="general-info-subtotal">Subtotal ({{ cartTotals.totalItems }} items)</p>
-    <div class="general-info-price">$ {{ cartTotals.totalPrices.toFixed(2) }}</div>
+    <p class="general-info-subtotal">Subtotal ({{ length }} items)</p>
+    <div class="general-info-price">$ {{ generalPrice }}</div>
   </div>
   <NuxtLink to="/cart" class="cart" @click="toggleSidebar">VIEW CART</NuxtLink>
 </template>
@@ -12,8 +12,11 @@
   import { storeToRefs } from 'pinia'
 
   const cartStore = useCart()
-  const { cartTotals } = storeToRefs(cartStore)
   const { toggleSidebar } = cartStore
+  const { cartTotals } = storeToRefs(cartStore)
+  const { length, price } = cartTotals.value
+
+  const generalPrice = price.toFixed(2)
 </script>
 
 <style lang="scss">

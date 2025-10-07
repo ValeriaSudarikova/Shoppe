@@ -7,7 +7,7 @@
       <p class="info-description-property">Black / Medium</p>
       <p class="info-description-prise">$ {{ item.product.price }}</p>
     </div>
-    <button class="info-delete" @click="removeItem(props.item.product.id)">
+    <button class="info-delete" @click="removeItem(item.product.id)">
       <img src="@/assets/images/icons/cart-close.svg" alt="closeItem" />
     </button>
   </div>
@@ -19,7 +19,7 @@
   const cartStore = useCart()
   const { removeItem, toggleSidebar } = cartStore
 
-  const props = defineProps<{
+  defineProps<{
     item: CartItem
   }>()
 </script>

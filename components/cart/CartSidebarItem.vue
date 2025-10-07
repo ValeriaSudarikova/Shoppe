@@ -2,7 +2,7 @@
   <li class="sidebar-list-item">
     <img class="sidebar-list-item-img" :src="item.product.image" :alt="item.product.title" />
     <div class="sidebar-list-item-content">
-      <CartSidebarListInfo :item="item" />
+      <CartSidebarItemInfo :item="item" />
       <CartSidebarCount :item="item" />
     </div>
   </li>

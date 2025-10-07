@@ -4,16 +4,12 @@
       <img src="@/assets/images/icons/arrow-cart.svg" alt="arrow" />
     </button>
     <h5 class="sidebar-main-heading">Shopping bag</h5>
-    <p class="sidebar-main-items-count">{{ cartTotals.totalItems }} items</p>
+    <p class="sidebar-main-items-count">{{ length }} items</p>
     <div class="sidebar-main-list">
-      <div v-if="cartStore.isLoading" class="sidebar-main-list-loading">Loading cart...</div>
+      <div v-if="isLoading" class="sidebar-main-list-loading">Loading cart...</div>
       <div v-else>
-        <ul v-if="cartStore.cartItems.length > 0" class="sidebar-main-list-items">
-          <CartSidebarItem
-            v-for="item in cartStore.cartItems"
-            :key="item.product.id"
-            :item="item"
-          />
+        <ul v-if="cartItems.length > 0" class="sidebar-main-list-items">
+          <CartSidebarItem v-for="item in cartItems" :key="item.product.id" :item="item" />
         </ul>
         <p v-else class="sidebar-main-list-empty">Your cart is empty</p>
       </div>
@@ -28,8 +24,9 @@
   const { isMobile } = storeToRefs(useMobileVersion())
 
   const cartStore = useCart()
-  const { toggleSidebar } = cartStore
-  const { cartTotals } = storeToRefs(cartStore)
+  const { toggleSidebar, cartItems } = cartStore
+  const { cartTotals, isLoading } = storeToRefs(cartStore)
+  const { length } = cartTotals.value
 </script>
 
 <style lang="scss">

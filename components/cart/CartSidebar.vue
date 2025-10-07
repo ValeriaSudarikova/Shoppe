@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div v-if="cartStore.isSidebarOpen" class="sidebar-overlay" @click="toggleSidebar">
+    <div v-if="isSidebarOpen" class="sidebar-overlay" @click="toggleSidebar">
       <div class="sidebar" @click.stop>
         <div class="sidebar-content">
           <CartSidebarMain />
@@ -17,9 +17,11 @@
 <script setup lang="ts">
   import HorizontalLine from '@/components/base/HorizontalLine.vue'
   import { useCart } from '@/stores/cart'
+  import { storeToRefs } from 'pinia'
 
   const cartStore = useCart()
   const { toggleSidebar } = cartStore
+  const { isSidebarOpen } = storeToRefs(cartStore)
 </script>
 
 <style lang="scss">
@@ -38,6 +40,7 @@
   .fade-enter-from,
   .fade-leave-to {
     opacity: 0;
+    transform: translateX(100%);
   }
 
   .sidebar {
