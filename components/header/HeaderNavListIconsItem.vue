@@ -1,6 +1,6 @@
 <template>
   <li v-for="(link, index) in icons" :key="index" class="header-top-nav-list-item">
-    <button class="header-top-nav-list-item-link" @click="navigate(link.to)">
+    <button class="header-top-nav-list-item-link" @click="navigate(link)">
       <img :src="link.src" :alt="link.alt" />
       <span v-if="isMobile" class="header-top-nav-list-item-link-span">{{ link.text }}</span>
     </button>
@@ -21,14 +21,19 @@
     alt: string
     to: string
     text: string
+    action?: () => void
   }
 
   defineProps<{
     icons: NavIcon[]
   }>()
 
-  function navigate(to: string) {
-    router.push(to)
+  function navigate(link: NavIcon) {
+    if (link.action) {
+      link.action()
+    } else if (link.to) {
+      router.push(link.to)
+    }
     emit('click-btn')
   }
 </script>
