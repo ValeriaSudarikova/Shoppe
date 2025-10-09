@@ -78,6 +78,11 @@
     transition: all 0.5s ease;
   }
 
+  .slide-enter-from,
+  .slide-leave-to {
+    opacity: 0;
+  }
+
   .slide-enter-active .sidebar,
   .slide-leave-active .sidebar {
     transition: all 0.5s ease;

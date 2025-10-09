@@ -39,16 +39,16 @@ export const useCart = defineStore('PiniaCart', () => {
   const sendCartToBackend = async () => {
     if (cartItems.value.length === 0) return
     try {
-      const formattedProductsForBackend = {
+      const formattedProductsForBackend = cartItems.value.map((item) => ({
+        productId: item.product.id,
+        quantity: item.count,
+      }))
+
+      const cartData = {
         userId: 1,
         date: new Date().toISOString().split('T')[0],
-        products: cartItems.value.map((item) => ({
-          productId: item.product.id,
-          quantity: item.count,
-        })),
+        products: formattedProductsForBackend,
       }
-
-      const cartData = formattedProductsForBackend
 
       const API_URL = import.meta.env.VITE_APP_URL
       let url = `${API_URL}/carts`
